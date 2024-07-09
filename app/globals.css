@@ -1,36 +1,85 @@
-/* Import Bootstrap */
-@import "~bootstrap/dist/css/bootstrap.min.css";
-
+/* Tailwind base, components, utilities - uncomment if using Tailwind CSS */
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Import Bootstrap */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/* @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'); */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+/* Import custom CSS files */
+@import url('../public/assets/css/nucleo-icons.css');
+@import url('../public/assets/css/nucleo-svg.css');
+
+/* Import Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Import Argon Dashboard CSS */
+@import url('../public/assets/css/argon-dashboard.css');
+
+/* JavaScript files are not imported in CSS, include them in _document.js or a custom Head component */
+
+
+/* styles.css or your stylesheet */
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 86vh;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.content {
+  flex: 1;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.small-spinner {
+  width: 18px;
+  height: 18px;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all-1 {
+  transition: all 0.3s ease-in-out;
+}
+
+.body{
+  font-family: 'Open Sans', 'Helvetica', 'Arial';
+}
+
+.hover-decorate:hover {
+  text-decoration: none;
+  color: #252525;
+}
+
+.hidescrollbar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari and Opera */
+}
+
+.hidescrollbar {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+
+/* .text-primary {
+  color: #252525 !important;
+} */
+
+
+
+/* .text-secondary {
+  color: #303030 !important;
 } */
