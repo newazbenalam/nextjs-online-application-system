@@ -1,14 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "./(components)/loginForm";
 import Link from "next/link";
 import Script from "next/script";
 import NoticeCard from "./(components)/NoticeCard";
+import { GetNotices } from "./lib/actions/GetNotices";
+import { GetUsers } from "./lib/actions/GetUser";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notices, setNotices] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // const start = async () => {
+    //   const res = await GetNotices();
+    //   setNotices(res);
+    // }
+
+    // server actions
+    async function start() {
+      const res = await GetNotices();
+      setNotices(res);
+    }
+
+    async function getUser() {
+      const res = await GetUsers();
+      setUsers(res);
+    }
+
+    // fetch api here
+    // const res = fetch("http://localhost:3000/api/notices/" + notices).then((res) => {
+    //   return res.json();
+    // })
+
+    start();
+    getUser();
+    console.log(notices);
+    console.log(users);
+  }, []);
 
   return (
     <body>
@@ -105,51 +137,57 @@ export default function Home() {
                   >
                     <span className="mask bg-gradient-primary opacity-6"></span>
 
-                    <div className="mt-5 pt-5 overflow-auto hidescrollbar" >
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
-                      <NoticeCard
-                        title={"Online Application for Various NOC "}
-                        subtitle={
-                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
-                        }
-                      ></NoticeCard><br />
+                    <div className="mt-5 pt-5 overflow-auto hidescrollbar">
+                      {notices.map((notice, index) => {
+                        return (
+                          <div key={index}>
+                            <NoticeCard
+                              title={notice.title}
+                              subtitle={notice.description}
+                              actionButton={() => {notice.hyperlink}}
+                            />
+                            <br />
+                          </div>
+                        );
+                      })}
 
-
+                      {/*                       
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br />
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br />
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br />
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br />
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br />
+                      <NoticeCard
+                        title={"Online Application for Various NOC "}
+                        subtitle={
+                          "(Safe Manning, Surveyor license, Ship Builders, Design Making,Class Authorization, Others)"
+                        }
+                      ></NoticeCard><br /> */}
                     </div>
                   </div>
                 </div>
