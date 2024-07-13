@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function NoticeCard({ title, subtitle, actionButton }) {
@@ -12,12 +13,14 @@ export default function NoticeCard({ title, subtitle, actionButton }) {
             <p className="position-relative">{ subtitle }</p>
           </div>
           <div className="col-2 d-flex align-items-center ">
+            <Link href={ actionButton }>
             <button
-              onClick={() => actionButton }
+              // onClick={() => actionButton }
               className=" col-12 btn btn-primary"
             >
               Apply
             </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -144,7 +144,8 @@ export default function Home() {
                             <NoticeCard
                               title={notice.title}
                               subtitle={notice.description}
-                              actionButton={() => {notice.hyperlink}}
+                              actionButton={ notice.hyperlink }
+
                             />
                             <br />
                           </div>
