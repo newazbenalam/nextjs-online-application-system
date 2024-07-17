@@ -84,7 +84,6 @@ model OrgNOCInfo {
   description String?   @db.VarChar(255)
   hyperlink   String?   @db.VarChar(100)
 
-  nocTypesId Int?
   nocTypesTitle String?   @db.VarChar(100)
   orgName String?   @db.VarChar(100)
   orgAddress String?   @db.VarChar(255)
@@ -98,6 +97,7 @@ model OrgNOCInfo {
   updatedAt   DateTime @updatedAt @default(now())
 
   nocTypes NOCtypes[]
+  nocTypesId Int?
 
   // payment 
   orgPaymentInfo PaymentInfo? @relation(fields: [orgPaymentInfoId], references: [id])
