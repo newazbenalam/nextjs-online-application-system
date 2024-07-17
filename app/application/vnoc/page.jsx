@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export default function ApplicationPage() {
   const router = useRouter();
   const [nocTypes, setNocTypes] = useState([]);
+  const [nocType, setNocType] = useState("");
 
   router.prefetch("/application/vnoc/form");
 
@@ -26,17 +27,17 @@ export default function ApplicationPage() {
     const formData = new FormData(e.target);
     const nocTypeId = formData.get("nocTypeId");
     console.log(nocTypeId);
-    router.push("/application/vnoc/form?nocTypeId=" + nocTypeId);
+    router.push("/application/vnoc/form?nocTypeId=" + nocTypeId + "&nocType=" + nocType);
   };
 
   return (
     <>
-      <main className="main-content  mt-0">
+      <main className="main-content mt-0">
         <section>
-          <div className="page-header mt-5 pt-5">
-            <div className="container card shadow-lg">
+          <div className="container" style={{ marginTop: "80px" }}>
+            <div className="card">
               <div className=" d-flex justify-content-center ">
-                <form onSubmit={(e) => onSubmit(e) } className=" col-12 col-lg-9 text-center" >
+                <form className=" col-12 col-lg-9 text-center" onSubmit={onSubmit}>
                   {/* Progress state indicator */}
 
                   <div className=" card-body form-group">
@@ -45,12 +46,13 @@ export default function ApplicationPage() {
                     </label>
                     <select
                       className="form-control"
-                      id="exampleFormControlSelect1"
+                      id="nocTypeId"
+                      onChange={(e) => setNocType(e.target.selectedOptions[0].getAttribute('details'))}
                       required
                     >
                       <option value=""></option>
                       {nocTypes.map((nocType) => (
-                        <option key={nocType.id} value={nocType.id}>
+                        <option key={nocType.id} value={nocType.id} details={nocType.title} >
                           {nocType.title}
                         </option>
                       ))}
@@ -66,7 +68,7 @@ export default function ApplicationPage() {
                   <button type="submit" className="btn bg-gradient-primary">
                     Next
                   </button>
-                  <Link href={"/application/vnoc/form"}/>
+                  {/* <Link href={"/application/vnoc/form"}/> */}
                 </form>
               </div>
             </div>
