@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export default function ApplicationPage() {
   const router = useRouter();
   const [nocTypes, setNocTypes] = useState([]);
+  const [nocTypeId, setNocTypeId] = useState(null);
   const [nocType, setNocType] = useState("");
 
   router.prefetch("/application/vnoc/form");
@@ -25,10 +26,14 @@ export default function ApplicationPage() {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const nocTypeId = formData.get("nocTypeId");
-    console.log(nocTypeId);
     router.push("/application/vnoc/form?nocTypeId=" + nocTypeId + "&nocType=" + nocType);
   };
+
+  const onChangeNocType = (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    setNocType(selectedOption.getAttribute("details"));
+    setNocTypeId(selectedOption.getAttribute("value"));
+  }
 
   return (
     <>
@@ -47,7 +52,7 @@ export default function ApplicationPage() {
                     <select
                       className="form-control"
                       id="nocTypeId"
-                      onChange={(e) => setNocType(e.target.selectedOptions[0].getAttribute('details'))}
+                      onChange={(e) => onChangeNocType(e)}
                       required
                     >
                       <option value=""></option>

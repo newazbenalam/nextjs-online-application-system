@@ -4,19 +4,19 @@ import React from "react";
 export default function NoticeCard({ title, subtitle, actionButton }) {
   return (
     <>
-      <div className="card blur rounded px-4 ">
-        <div className="row">
-          <div className="col-10">
+      <div className="card blur rounded p-4">
+        <div className=" d-flex flex-wrap">
+          <div className="col-lg-10">
             <h4 className="mt-3  font-weight-bolder position-relative">
               { title }
             </h4>
             <p className="position-relative">{ subtitle }</p>
           </div>
-          <div className="col-2 d-flex align-items-center ">
+          <div className="d-flex align-items-center">
             <Link href={ actionButton }>
             <button
               // onClick={() => actionButton }
-              className=" col-12 btn btn-primary"
+              className=" col-12 btn btn-primary m-auto"
             >
               Apply
             </button>

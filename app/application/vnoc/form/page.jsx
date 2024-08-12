@@ -4,9 +4,11 @@ import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { SetApplicationPersonalData } from "@/app/lib/actions/SetApplicationsForm";
 
 export default function ApplicationPage() {
-  const [nocType, setNocType] = useState(useSearchParams().get("nocTypeId"));
+  const [nocTypeID, setNocTypeID] = useState(useSearchParams().get("nocTypeId"));
+  const [nocType, setNocType] = useState(useSearchParams().get("nocType"));
 
   useEffect(() => {
     //restore data from local storage
@@ -24,27 +26,35 @@ export default function ApplicationPage() {
     }
   }, []);
 
-  const onSubmitFormToNextPage = (e) => {
+  const onSubmitFormToNextPage = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formDataObj = Object.fromEntries(formData.entries());
     console.log("Form data:", formDataObj);
 
     // save data to local storage
+    formDataObj.nocTypeID = nocTypeID;
+    formDataObj.nocType = nocType;
+
     localStorage.setItem("personalInfo", JSON.stringify(formDataObj));
 
-    // window.location.href = "/application/payment";
+    const res = await  SetApplicationPersonalData(formDataObj);
+    
+    if (res.status === 201) {
+      window.location.href = "/application/payment";
+    }
+    
   };
 
   return (
     <>
       <main className="container" style={{ marginTop: "75px" }}>
         <section className="rounded-3 card mb-2">
-          <p className="navbar-brand font-weight-bold m-auto py-2">
-            {"Personal Information"}
-          </p>
         </section>
         <section className="card">
+          <p className="pt-4 navbar-brand font-weight-bold m-auto py-2">
+            {"Personal Information"}
+          </p>
           <form className="m-4" onSubmit={onSubmitFormToNextPage}>
             <div className="row">
               <div className="col-md-6">
@@ -174,7 +184,7 @@ export default function ApplicationPage() {
                 Back
               </button>
             </Link>
-            <button type="submit" className="btn bg-gradient-primary">
+            <button   type="submit" className="btn bg-gradient-primary">
               Next
             </button>
           </form>
