@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-// import { authenticate } from "../../lib/actions";
+import { GetAuth } from "@/app/lib/actions/GetAuthentication";
 import Link from "next/link";
 
 const LoginForm = () => {
@@ -10,12 +10,17 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    // const newState = await authenticate(state, formData);
+    const newState = await GetAuth(formData.get("email"), formData.get("password"));
     setState(newState);
+    console.log(newState.error);
     if (newState === "Wrong Credentials") {
+      
       return;
     }
-    window.location.href = "/dashboard"  // hard reload to update the UI as a replacement for the redirect.
+    if (newState.error === "Success"){
+
+      window.location.href = "/dashboard"  // hard reload to update the UI as a replacement for the redirect.
+    }
   };
 
   return (
@@ -35,7 +40,7 @@ const LoginForm = () => {
           placeholder="Password"
           required
         />
-        {state && <p className="alert-info text-white text-lg px-4 py-2 border-radius-md">{state}</p>}
+        {state && <p className="alert-info text-white text-lg px-4 py-2 border-radius-md">{state.error}</p>}
         <div className="form-check form-switch">
           <input
             className="form-check-input"
