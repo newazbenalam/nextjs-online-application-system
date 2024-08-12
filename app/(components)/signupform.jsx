@@ -48,10 +48,10 @@ const SignupForm = () => {
           required
         />
         <input
-          type="username"
-          name="username"
+          type="password"
+          name="password"
           className="form-control form-control-lg mb-3"
-          placeholder="Username"
+          placeholder="Password"
           required
         />
         {state && <p className="alert-info text-white text-lg px-4 py-2 border-radius-md">{state.error}</p>}

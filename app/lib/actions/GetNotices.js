@@ -2,6 +2,7 @@
 
 import db from '@/app/lib/db.js';
 
+// server actions
 export const GetNotices = async () => {
   try {
 
