@@ -8,9 +8,11 @@ import React, { use, useEffect, useState } from "react";
 // import { revalidateLocalData } from "../tickets/hooks/revelidateTickets";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
+import { GetUsers } from "@/app/lib/actions/GetUser";
+import TicketTable from "@/app/(components)/TickketTable";
 
 export default function Dashboard() {
-  const [openTickets, setOpenTickets] = useState(<LoadingSpinner />);
+  const [users, setUsers] = useState(<LoadingSpinner />);
   const [closedTickets, setClosedTickets] = useState(<LoadingSpinner />);
   const [customerSupport, setCustomerSupport] = useState(<LoadingSpinner />);
   const [servicesStatus, setServicesStatus] = useState(<LoadingSpinner />);
@@ -19,32 +21,19 @@ export default function Dashboard() {
   const [email, setEmail] = useState(null);
 
   useEffect(() => {
-    var sessionData;
-    const prevData = JSON.parse(localStorage.getItem("ticket_data")) || [];
-    console.log("Previous data: ", prevData);
-
-    const fetchTickets = async (prevDataReq) => {
-      // sessionData = await getCookies();
-      const { openTickets, closedTickets, inProgressTickets, activeServices } =
-        await getTicketsStatus(sessionData?.user?.id);
-      setOpenTickets(openTickets?.length || 0);
-      setClosedTickets(closedTickets?.length || 0);
-      setCustomerSupport(inProgressTickets?.length || 0);
-      setServicesStatus(activeServices?.length || 0);
-      setEmail(sessionData?.user?.email);
-
-      // const dataResponse = await revalidateLocalData(prevDataReq, email);
-      console.log("Data sessionData email: ", email);
-      // console.log("Previous dataResponse: ", dataResponse);
-      // setTicketData(() => openTickets.filter((data) =>( data.priority === "HIGH")));
-      // sort by decening order tickets id
-      setTicketData(openTickets?.sort((a, b) => b.id - a.id).slice(0, 15));
+    const fetchUsers = async () => {
+      const res = await  GetUsers();
+      setUsers(res);
     };
+    
+
+
+
 
     // revalidateData(prevData);
-    fetchTickets(prevData);
+    fetchUsers();
     setIsLoading(false);
-  }, [email]);
+  }, []);
 
   return (
     <>
@@ -60,14 +49,14 @@ export default function Dashboard() {
                   >
                     <div className="numbers">
                       <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                        {"Open Tickets"}
+                        {"Users"}
                       </p>
-                      <h5 className="font-weight-bolder pl-1">{openTickets}</h5>
+                      <h5 className="font-weight-bolder pl-1">{users.length}</h5>
                       <p className="mb-0">
                         <span className="text-success text-sm font-weight-bolder">
                           {/* +55% */}
                         </span>
-                        Total open tickets
+                        Total users
                       </p>
                     </div>
                   </Link>
@@ -304,21 +293,21 @@ export default function Dashboard() {
         <div className="col-lg-7 mb-lg-0 mb-4">
           <div className="card">
             <div className="card-header p-3 pb-2">
-              <h6 className="mb-0">Tickets History</h6>
+              <h6 className="mb-0">Latest Candidates </h6>
             </div>
             {isLoading && (
               <div className="pl-3 pb-3">
                 <LoadingSpinner className="small-spinner" />
               </div>
             )}
-            {/* {!isLoading &&
-              (Array.isArray(ticketData) && ticketData.length > 0 ? (
-                <TicketTable ticketData={ticketData} className="z-index-0" />
+            {!isLoading &&
+              (Array.isArray(users) && users.length > 0 ? (
+                <TicketTable ticketData={users} className="z-index-0" />
               ) : (
                 <p className="p-3 pt-0 pb-2">
                   You have no tickets at the moment.
                 </p>
-              ))} */}
+              ))}
           </div>
         </div>
 
@@ -339,7 +328,7 @@ export default function Dashboard() {
                       <h6 className="mb-1 text-dark text-sm">Tickets</h6>
                       <span className="text-xs">
                         { closedTickets } closed,{" "}
-                        <span className="font-weight-bold"> {openTickets } open</span>
+                        <span className="font-weight-bold"> {users.length } open</span>
                       </span>
                     </div>
                   </div>

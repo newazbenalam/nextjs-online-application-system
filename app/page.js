@@ -7,6 +7,7 @@ import Script from "next/script";
 import NoticeCard from "./(components)/NoticeCard";
 import { GetNotices } from "./lib/actions/GetNotices";
 import { GetUsers } from "./lib/actions/GetUser";
+import "@/app/globals.css";
 
 export default function Home() {
   const [email, setEmail] = useState("");
