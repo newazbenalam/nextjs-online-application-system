@@ -11,7 +11,7 @@ import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import { GetUsers } from "@/app/lib/actions/UserUsecase";
 import TicketTable from "@/app/(components)/TickketTable";
 
-export default function Dashboard() {
+export default function DashboardUsers() {
   const [users, setUsers] = useState(<LoadingSpinner />);
   const [closedTickets, setClosedTickets] = useState(<LoadingSpinner />);
   const [customerSupport, setCustomerSupport] = useState(<LoadingSpinner />);
@@ -37,145 +37,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="row">
-        <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div className="card">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-8">
-                  <Link
-                    href={"/dashboard/tickets/lists?status=OPEN"}
-                    className="hover-decorate"
-                  >
-                    <div className="numbers">
-                      <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                        {"Candidates"}
-                      </p>
-                      <h5 className="font-weight-bolder pl-1">{users.length}</h5>
-                      <p className="mb-0">
-                        <span className="text-success text-sm font-weight-bolder">
-                          {/* +55% */}
-                        </span>
-                        Total candidates
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                    <i
-                      className="ni ni-money-coins text-lg opacity-10"
-                      aria-hidden="true"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div className="card">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-8">
-                  <Link
-                    href={"/dashboard/tickets/lists?status=CLOSED"}
-                    className="hover-decorate"
-                  >
-                    <div className="numbers">
-                      <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                        {" Application"}
-                      </p>
-                      <h5 className="font-weight-bolder pl-1">
-                        {closedTickets}
-                      </h5>
-                      <p className="mb-0">
-                        <span className="text-success text-sm font-weight-bolder">
-                          {/* +3% */}
-                        </span>
-                        Total applications
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i
-                      className="ni ni-world text-lg opacity-10"
-                      aria-hidden="true"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div className="card">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-8">
-                  <div className="numbers">
-                    <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                      Customers Support
-                    </p>
-                    <h5 className="font-weight-bolder pl-1">
-                      {customerSupport}
-                    </h5>
-                    <p className="mb-0">
-                      <span className="text-danger text-sm font-weight-bolder">
-                        {/* -2% */}
-                      </span>
-                      Last online 30 minutes ago
-                    </p>
-                  </div>
-                </div>
-                <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                    <i
-                      className="ni ni-paper-diploma text-lg opacity-10"
-                      aria-hidden="true"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="col-xl-3 col-sm-6">
-          <div className="card">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-8">
-                  <div className="numbers">
-                    <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                      Services Status
-                    </p>
-                    <h5 className="font-weight-bolder pl-1">
-                      {servicesStatus}
-                    </h5>
-                    <p className="mb-0">
-                      <span className="text-success text-sm font-weight-bolder">
-                        {/* +5% */}
-                      </span>{" "}
-                      Current active issues
-                    </p>
-                  </div>
-                </div>
-                <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i
-                      className="ni ni-check-bold text-lg opacity-10"
-                      aria-hidden="true"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* <div className="row mt-4 h-100">
         <div className="col-lg-7 mb-lg-0 mb-4">
@@ -290,7 +152,7 @@ export default function Dashboard() {
         </div>
       </div> */}
       <div className="row mt-4">
-        <div className="col-lg-7 mb-lg-0 mb-4">
+        <div className="col-lg-12 mb-lg-0 mb-4">
           <div className="card">
             <div className="card-header p-3 pb-2">
               <h6 className="mb-0">Latest Candidates </h6>
@@ -302,7 +164,7 @@ export default function Dashboard() {
             )}
             {!isLoading &&
               (Array.isArray(users) && users.length > 0 ? (
-                <TicketTable ticketData={users} className="z-index-0" />
+                <TicketTable perPage={18} ticketData={users} className="z-index-0" />
               ) : (
                 <p className="p-3 pt-0 pb-2">
                   You have no tickets at the moment.
@@ -311,7 +173,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="col-lg-5">
+        {/* <div className="col-lg-5">
           <div className="card">
             <div className="card-header pb-0 p-3">
               <h6 className="mb-0">Categories</h6>
@@ -361,7 +223,7 @@ export default function Dashboard() {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* <Footer /> */}
       {/* <LogOutButton /> */}

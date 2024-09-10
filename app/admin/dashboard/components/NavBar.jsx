@@ -52,18 +52,50 @@ export default function NavBar() {
       <div className="w-auto" id="sidenav-collapse-main">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className={getLinkClass("/dashboard")} href="/dashboard">
+            <Link className={getLinkClass("/admin/dashboard")} href="/admin/dashboard">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
               <span className="nav-link-text ms-1">Dashboard</span>
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className={getLinkClass("/admin/dashboard/applications")} href="/admin/dashboard/applications">
+              <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              </div>
+              <span className="nav-link-text ms-1">Applications</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className={getLinkClass("/admin/dashboard/users")} href="/admin/dashboard/users">
+              <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i className="ni ni-user-run text-primary text-sm opacity-10"></i>
+              </div>
+              <span className="nav-link-text ms-1">Users</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className={getLinkClass("/admin/dashboard/reports")} href="/admin/dashboard/reports">
+              <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              </div>
+              <span className="nav-link-text ms-1">Reports</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className={getLinkClass("/admin/dashboard/training-center")} href="/admin/dashboard/trainingenter">
+              <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              </div>
+              <span className="nav-link-text ms-1">Training Center</span>
+            </Link>
+          </li>
           {userRole === ("ADMIN" || "EMPLOYEE") && (
             <li className="nav-item">
               <Link
-                className={getLinkClass("/dashboard/knowledge/create")}
-                href="/dashboard/knowledge/create"
+                className={getLinkClass("/admin/dashboard/dashboard/knowledge/create")}
+                href="/admin/dashboard/dashboard/knowledge/create"
               >
                 <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="ni  ni-fat-add ni-4x text-primary text-sm opacity-10"></i>
@@ -74,8 +106,8 @@ export default function NavBar() {
           )}
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/knowledge")}
-              href="/dashboard/knowledge"
+              className={getLinkClass("/admin/dashboard/dashboard/knowledge")}
+              href="/admin/dashboard/dashboard/knowledge"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-album-2 text-primary text-sm opacity-10"></i>
@@ -86,8 +118,8 @@ export default function NavBar() {
           {userRole === ("ADMIN" || "EMPLOYEE") && (
             <li className="nav-item">
               <Link
-                className={getLinkClass("/dashboard/tables")}
-                href="/dashboard/tables"
+                className={getLinkClass("/admin/dashboard/dashboard/tables")}
+                href="/admin/dashboard/dashboard/tables"
               >
                 <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
@@ -97,7 +129,7 @@ export default function NavBar() {
             </li>
           )}
           {/* <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/billing')} href="/dashboard/billing">
+            <Link className={getLinkClass('/dashboard/billing')} href="/admin/dashboard/dashboard/billing">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-credit-card text-success text-sm opacity-10"></i>
               </div>
@@ -105,7 +137,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/virtual-reality')} href="/dashboard/virtual-reality">
+            <Link className={getLinkClass('/dashboard/virtual-reality')} href="/admin/dashboard/dashboard/virtual-reality">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-app text-info text-sm opacity-10"></i>
               </div>
@@ -113,7 +145,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/rtl')} href="/dashboard/rtl">
+            <Link className={getLinkClass('/dashboard/rtl')} href="/admin/dashboard/dashboard/rtl">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-world-2 text-danger text-sm opacity-10"></i>
               </div>
@@ -122,8 +154,8 @@ export default function NavBar() {
           </li> */}
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/tickets/lists")}
-              href="/dashboard/tickets/lists"
+              className={getLinkClass("/admin/dashboard/dashboard/tickets/lists")}
+              href="/admin/dashboard/dashboard/tickets/lists"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-credit-card text-info text-sm opacity-10"></i>
@@ -133,13 +165,13 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/tickets")}
-              href="/dashboard/tickets"
+              className={getLinkClass("/admin/dashboard/notices")}
+              href="/admin/dashboard/notices"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-collection text-info text-sm opacity-10"></i>
               </div>
-              <span className="nav-link-text ms-1">Create Ticket</span>
+              <span className="nav-link-text ms-1">Notices</span>
             </Link>
           </li>
           <li className="nav-item mt-3">
@@ -149,8 +181,8 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/profile")}
-              href="/dashboard/profile"
+              className={getLinkClass("/admin/dashboard/dashboard/profile")}
+              href="/admin/dashboard/dashboard/profile"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -158,11 +190,22 @@ export default function NavBar() {
               <span className="nav-link-text ms-1">Profile Manager</span>
             </Link>
           </li>
+          <li className="nav-item">
+            <Link
+              className={getLinkClass("/admin/dashboard/settings")}
+              href="/admin/dashboard/settings"
+            >
+              <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i className="ni ni-settings-gear-65 text-dark text-sm opacity-10"></i>
+              </div>
+              <span className="nav-link-text ms-1">Settings</span>
+            </Link>
+          </li>
           {userRole === ("ADMIN" || "EMPLOYEE") && (
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/sign-in")}
-              href="/dashboard/sign-in"
+              className={getLinkClass("/admin/dashboard/dashboard/sign-in")}
+              href="/admin/dashboard/dashboard/sign-in"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>

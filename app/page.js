@@ -5,8 +5,8 @@ import LoginForm from "./(components)/loginForm";
 import Link from "next/link";
 import Script from "next/script";
 import NoticeCard from "./(components)/NoticeCard";
-import { GetNotices } from "./lib/actions/GetNotices";
-import { GetUsers } from "./lib/actions/GetUser";
+import { GetNotices } from "./lib/actions/NoticesUsecase";
+import { GetUsers } from "./lib/actions/UserUsecase";
 import "@/app/globals.css";
 
 export default function Home() {
