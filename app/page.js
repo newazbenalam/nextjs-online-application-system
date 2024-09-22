@@ -8,12 +8,14 @@ import NoticeCard from "./(components)/NoticeCard";
 import { GetNotices } from "./lib/actions/NoticesUsecase";
 import { GetUsers } from "./lib/actions/UserUsecase";
 import "@/app/globals.css";
+import { GetImage } from "./lib/actions/GetImages";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [notices, setNotices] = useState([]);
   const [users, setUsers] = useState([]);
+  const [coverImage, setCoverImage] = useState(null);
 
   useEffect(() => {
     // const start = async () => {
@@ -23,6 +25,9 @@ export default function Home() {
 
     // server actions
     async function start() {
+      const imgres = await GetImage("home-cover");
+      console.log(imgres);
+      setCoverImage(imgres.hyperlink);
       const res = await GetNotices();
       setNotices(res);
     }
@@ -102,8 +107,8 @@ export default function Home() {
           <div className="page-header min-vh-100">
             <div className="container">
               <div className="row">
-                <div className="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-                  <div className="card card-plain">
+                <div className="card col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+                  <div className="card-plain">
                     <div className="card-header pb-0 text-start">
                       <h4 className="font-weight-bolder">Sign In</h4>
                       <p className="mb-0">
@@ -130,11 +135,7 @@ export default function Home() {
                 <div className="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 justify-content-center flex-column">
                   <div
                     className="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column  overflow-hidden"
-                    style={{
-                      backgroundImage:
-                        "url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg')",
-                      backgroundSize: "cover",
-                    }}
+                    { ...coverImage && ({ style: { backgroundImage: `url(${coverImage})`, backgroundSize: "cover" } }) }
                   >
                     <span className="mask bg-gradient-primary opacity-6"></span>
 

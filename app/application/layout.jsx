@@ -5,7 +5,7 @@ import NavBar from '../(components)/NavBar'
 export default function ApplicationLayout({ children }) {
   return (
     <>
-          <body>
+          <body className=''>
       <div className="container position-sticky z-index-sticky top-0">
         <div className="row">
           <div className="col-12">
