@@ -20,16 +20,28 @@ export const SetApplicationPersonalData = async (formData) => {
     console.log(name, phone, email, address, orgName, orgAddress, orgMobile, orgEmail, expirationDate, nocTypeID, nocType);
 
     /* 
-    model Users {
+model Users {
   id       Int    @id @default(autoincrement()) 
   name     String @db.VarChar(50)
   email    String @db.VarChar(35)
   mobile   String @db.VarChar(15)
   username String @db.VarChar(50)
   password String @db.VarChar(50)
+  fatherName String @db.VarChar(50) @default("N/A")
+  motherName String @db.VarChar(50) @default("N/A")
+  dob     DateTime @default(now()) 
+  dobPlace String @db.VarChar(255)  @default("N/A")
+  nid    String @db.VarChar(20)     @default("N/A")
+  image String @db.VarChar(100)     @default("N/A")
+  presentAddress String @db.VarChar(255)  @default("N/A")
+  permanentAddress String @db.VarChar(255)  @default("N/A")
+  active Boolean @default(true)
+  role    String @db.VarChar(50) @default("user")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 }
+
 
 model Notices {
   id          Int      @id @default(autoincrement())
@@ -153,9 +165,28 @@ model PaymentTypes {
         mobile: phone,
         username: email,
         password: phone,
+        fatherName: formData.fatherName || "N/A",
+        motherName: formData.motherName || "N/A",
+        presentAddress: formData.currentAddress,
+        permanentAddress: formData.parAddress,
+        dob: new Date(formData.dob || '1917-01-01'),
+        dobPlace: formData.dobPlace,
+        nid: formData.nid,
+        image: formData.image,
+        role: formData.role || "user",
       },
     });
 
+    
+    const varNoc = formData.nocTypeID;
+    var includeNoc = {};
+    if (varNoc) {
+      includeNoc = {
+        connect: {
+          id: parseInt(varNoc),
+        },
+      };
+    }
     const orgNOCInfo = await db.OrgNOCInfo.create({
       data: {
         title: nocType,
@@ -174,11 +205,7 @@ model PaymentTypes {
         // nocTypes NOCtypes[]
         // nocTypesId Int?
         nocTypesId: parseInt(nocTypeID),
-        nocTypes: {
-          connect: {
-            id: parseInt(nocTypeID),
-          },
-        },
+        nocTypes: includeNoc,
 
         orgPaymentInfoId: patmentType
       },
@@ -195,3 +222,36 @@ model PaymentTypes {
     return [];
   }
 };
+
+
+export const SetApplicationUserData = async (formData) => {
+  try {
+    const users = await db.Users.create({
+      data: {
+        name: formData.applicantName,
+        email: formData.email,
+        mobile: formData.applicantPhone,
+        username: formData.email,
+        password: formData.applicantPhone,
+        fatherName: formData.fatherName || "N/A",
+        motherName: formData.motherName || "N/A",
+        presentAddress: formData.currentAddress,
+        permanentAddress: formData.parAddress,
+        dob: new Date(formData.dob),
+        dobPlace: formData.dobPlace,
+        nid: formData.nid,
+        image: formData.image,
+        role: formData.role || "user",
+      },
+    });
+
+    console.log(users);
+  
+    const respone = { status: "success", message: "Data saved successfully" };
+    return respone;
+  }
+  catch (error) {
+    console.error("SetApplicationUserData", error);
+    return [];
+  }
+}
