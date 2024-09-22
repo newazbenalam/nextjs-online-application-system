@@ -3,12 +3,15 @@
 import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SetApplicationPersonalData } from "@/app/lib/actions/SetApplicationsForm";
 
 export default function ApplicationPage() {
   const [nocTypeID, setNocTypeID] = useState(useSearchParams().get("nocTypeId"));
   const [nocType, setNocType] = useState(useSearchParams().get("nocType"));
+  const [alert, setAlert] = useState(false);
+  
+  const router = useRouter();
 
   useEffect(() => {
     //restore data from local storage
@@ -40,8 +43,12 @@ export default function ApplicationPage() {
 
     const res = await  SetApplicationPersonalData(formDataObj);
     
-    if (res.status === 201) {
-      window.location.href = "/application/payment";
+    if (res.status === 'success') {
+      setAlert(res.status);
+      setTimeout(() => {
+        router.push("/application/payment");
+      }, 3000);
+      // window.location.href = "/application/payment";
     }
     
   };
@@ -187,6 +194,11 @@ export default function ApplicationPage() {
             <button   type="submit" className="btn bg-gradient-primary">
               Next
             </button>
+            {alert && (
+              <div className="alert alert-success mt-3 text-white font-weight-bold" role="alert">
+                  Your data has been saved successfully. Redirecting to payment page...
+              </div>
+            )}
           </form>
         </section>
       </main>
