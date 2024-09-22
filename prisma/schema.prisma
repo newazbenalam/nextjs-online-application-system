@@ -21,6 +21,19 @@ model Users {
   mobile   String @db.VarChar(15)
   username String @db.VarChar(50)
   password String @db.VarChar(50)
+  fatherName String @db.VarChar(50) @default("N/A")
+  motherName String @db.VarChar(50) @default("N/A")
+  dob     DateTime @default(now()) 
+  dobPlace String @db.VarChar(255)  @default("N/A")
+  nid    String @db.VarChar(20)     @default("N/A")
+  image String @db.VarChar(100)     @default("N/A")
+  presentAddress String @db.VarChar(255)  @default("N/A")
+  permanentAddress String @db.VarChar(255)  @default("N/A")
+  active Boolean @default(true)
+  role    String @db.VarChar(50) @default("user")
+
+  paymentInfo PaymentInfo[] 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 }
@@ -122,6 +135,9 @@ model PaymentInfo {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt @default(now())
 
+  users Users? @relation(fields: [usersId], references: [id])
+  usersId Int?
+
   orgNOCInfo OrgNOCInfo[]
 }
 
@@ -137,4 +153,13 @@ model PaymentTypes {
   updatedAt   DateTime @updatedAt @default(now())
 
   paymentInfo PaymentInfo[]
+}
+
+model Images {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(100)
+  description String?   @db.VarChar(255)
+  hyperlink   String?   @db.VarChar(1000)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt @default(now())
 }
