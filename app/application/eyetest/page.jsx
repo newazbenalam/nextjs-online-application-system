@@ -3,13 +3,16 @@
 import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {  SetApplicationUserData } from "@/app/lib/actions/SetApplicationsForm";
 
 export default function ApplicationPage() {
+  const [noticeId, setNoticeId] = useState(useSearchParams().get("noticeId"));
   const [nocTypeID, setNocTypeID] = useState(useSearchParams().get("nocTypeId"));
   const [nocType, setNocType] = useState(useSearchParams().get("nocType"));
   const [alert, setAlert] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     //restore data from local storage
@@ -39,11 +42,13 @@ export default function ApplicationPage() {
 
     localStorage.setItem("personalInfo", JSON.stringify(formDataObj));
 
-    const res = await  SetApplicationUserData(formDataObj);
+    const res = await  SetApplicationUserData(formDataObj,noticeId);
     
     if (res.status === 'success') {
       setAlert(res.status);
-      // window.location.href = "/application/payment";
+      setTimeout(() => {
+        router.push("/application/payment?appliedId="+res.appliedId);
+      }, 400);
     }
     
   };

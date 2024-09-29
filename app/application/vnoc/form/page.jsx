@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { SetApplicationPersonalData } from "@/app/lib/actions/SetApplicationsForm";
 
 export default function ApplicationPage() {
+  const [noticeId, setNoticeId] = useState(useSearchParams().get("noticeId"));
   const [nocTypeID, setNocTypeID] = useState(useSearchParams().get("nocTypeId"));
   const [nocType, setNocType] = useState(useSearchParams().get("nocType"));
   const [alert, setAlert] = useState(false);
@@ -41,7 +42,7 @@ export default function ApplicationPage() {
 
     localStorage.setItem("personalInfo", JSON.stringify(formDataObj));
 
-    const res = await  SetApplicationPersonalData(formDataObj);
+    const res = await  SetApplicationPersonalData(formDataObj, noticeId);
     
     if (res.status === 'success') {
       setAlert(res.status);

@@ -36,6 +36,8 @@ model Users {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
+
+  AppliedForms AppliedForms[]
 }
 
 model Notices {
@@ -43,11 +45,42 @@ model Notices {
   title       String   @db.VarChar(100)
   description String   @db.VarChar(255)
   hyperlink   String?   @db.VarChar(100)
+  cost        Float?    @db.Float @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt @default(now())
 
+  // applicationForms ApplicationForms? @relation(fields: [applicationFormsId], references: [id])
+  // applicationFormsId Int?
+
+  AppliedForms AppliedForms[]
+}
+
+model AppliedForms {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(100) //Applied Form Title
+  description String?   @db.VarChar(255)
+  hyperlink   String?   @db.VarChar(100)
+  status      String?   @db.VarChar(50) @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt @default(now())
+
+  users Users? @relation(fields: [usersId], references: [id])
+  usersId Int?
+
+  notices Notices? @relation(fields: [noticesId], references: [id])
+  noticesId Int?
+
   applicationForms ApplicationForms? @relation(fields: [applicationFormsId], references: [id])
   applicationFormsId Int?
+
+  subForms SubForms? @relation(fields: [subFormsId], references: [id])
+  subFormsId Int?
+
+  orgNOCInfo OrgNOCInfo? @relation(fields: [orgNOCInfoId], references: [id])
+  orgNOCInfoId Int?
+
+  paymentInfo PaymentInfo? @relation(fields: [paymentInfoId], references: [id])
+  paymentInfoId Int?
 }
 
 
@@ -62,8 +95,10 @@ model ApplicationForms {
   subForm     SubForms? @relation(fields: [subFormId], references: [id])
   subFormId   Int?
 
-  notices     Notices[]
+  // notices     Notices[]
 
+
+  AppliedForms AppliedForms[]
 }
 
 model SubForms {
@@ -75,6 +110,8 @@ model SubForms {
   updatedAt   DateTime @updatedAt @default(now())
 
   applicationForms ApplicationForms[]
+
+  AppliedForms AppliedForms[]
 }
 
 
@@ -116,6 +153,8 @@ model OrgNOCInfo {
   orgPaymentInfo PaymentInfo? @relation(fields: [orgPaymentInfoId], references: [id])
   orgPaymentInfoId Int?
 
+
+  AppliedForms AppliedForms[]
 }
 
 model PaymentInfo {
@@ -139,6 +178,8 @@ model PaymentInfo {
   usersId Int?
 
   orgNOCInfo OrgNOCInfo[]
+
+  AppliedForms AppliedForms[]
 }
 
 model PaymentTypes {

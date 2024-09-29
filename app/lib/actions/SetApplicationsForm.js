@@ -2,7 +2,7 @@
 
 import db from "@/app/lib/db.js";
 
-export const SetApplicationPersonalData = async (formData) => {
+export const SetApplicationPersonalData = async (formData, noticeId) => {
   try {
     const name = formData.applicantName;
     const phone = formData.applicantPhone;
@@ -213,9 +213,41 @@ model PaymentTypes {
 
     console.log(users, orgNOCInfo);
 
+    // Filling up applied Forms
+
+    // model AppliedForms {
+    //   id          Int      @id @default(autoincrement())
+    //   title       String   @db.VarChar(100) //Applied Form Title
+    //   description String?   @db.VarChar(255)
+    //   hyperlink   String?   @db.VarChar(100)
+    //   createdAt   DateTime @default(now())
+    //   updatedAt   DateTime @updatedAt @default(now())
+    
+    //   users Users? @relation(fields: [usersId], references: [id])
+    //   usersId Int?
+    
+    //   notices Notices? @relation(fields: [noticesId], references: [id])
+    //   noticesId Int?
+    
+    //   applicationForms ApplicationForms? @relation(fields: [applicationFormsId], references: [id])
+    //   applicationFormsId Int?
+    
+    //   subForms SubForms? @relation(fields: [subFormsId], references: [id])
+    //   subFormsId Int?
+    
+    //   orgNOCInfo OrgNOCInfo? @relation(fields: [orgNOCInfoId], references: [id])
+    //   orgNOCInfoId Int?
+    
+    //   paymentInfo PaymentInfo? @relation(fields: [paymentInfoId], references: [id])
+    //   paymentInfoId Int?
+    // }
+
+    await AppliedFormFoo(noticeId, users, nocType, orgNOCInfo, patmentType);
+
+
     // console.log(email);
     // const users = await db.Users.findMany();
-    const respone = { status: "success", message: "Data saved successfully" };
+    const respone = { status: "Application created successfully.", message: "Data saved successfully" };
     return respone;
   } catch (error) {
     console.error("SetApplicationPersonalData", error);
@@ -224,9 +256,10 @@ model PaymentTypes {
 };
 
 
-export const SetApplicationUserData = async (formData) => {
+export const SetApplicationUserData = async (formData, noticeId) => {
+
   try {
-    const users = await db.Users.create({
+    const user = await db.Users.create({
       data: {
         name: formData.applicantName,
         email: formData.email,
@@ -245,13 +278,172 @@ export const SetApplicationUserData = async (formData) => {
       },
     });
 
-    console.log(users);
+    console.log(user);
+
+    const appliedId =  await AppliedFormFoo(noticeId, user);
+    
   
-    const respone = { status: "success", message: "Data saved successfully" };
+    const respone = { status: "success", message: "Data saved successfully", appliedId: appliedId };
     return respone;
   }
   catch (error) {
     console.error("SetApplicationUserData", error);
+    return [];
+  }
+}
+
+async function AppliedFormFoo(noticeId, users, nocType=null, orgNOCInfo=null, patmentType=null) {
+
+  const notices = await db.Notices.findUnique({
+    where: {
+      id: parseInt(noticeId),
+    },
+  })
+
+  console.log(notices);
+  var appliedForms;
+
+  if (orgNOCInfo) {
+    appliedForms = await db.AppliedForms.create({
+      data: {
+        title: notices.title,
+        description: nocType || "N/A",
+        usersId: users.id,
+        orgNOCInfoId: orgNOCInfo.id,
+        // paymentInfoId: patmentType,
+        noticesId: notices.id
+      }
+    });
+  
+  } else {
+    appliedForms = await db.AppliedForms.create({
+      data: {
+        title: notices.title,
+        description: nocType || "N/A",
+        usersId: users.id,
+        // paymentInfoId: patmentType,
+        noticesId: notices.id
+      }
+    });
+  }
+
+
+  console.log(appliedForms);
+  return appliedForms.id;
+}
+
+
+// get applied forms
+export const GetAppliedForms = async () => {
+  try {
+    const appliedForms = await db.AppliedForms.findMany();
+    return appliedForms;
+  } catch (error) {
+    console.error("GetAppliedForms", error);
+    return [];
+  }
+}
+
+// get applied form
+export const GetAppliedForm = async (id) => {
+  try {
+    const appliedForm = await db.AppliedForms.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        users: true,
+        notices: true,
+        applicationForms: true,
+        subForms: true,
+        orgNOCInfo: true,
+        paymentInfo: true,
+      },
+    });
+    return appliedForm;
+  } catch (error) {
+    console.error("GetAppliedForm", error);
+    return [];
+  }
+}
+
+// update applied form
+export const UpdateAppliedForm = async (id, data) => {
+  try {
+    const appliedForm = await db.AppliedForms.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        ...data,
+      },
+    });
+    return appliedForm;
+  } catch (error) {
+    console.error("UpdateAppliedForm", error);
+    return [];
+  }
+}
+
+
+
+// model PaymentInfo {
+//   id          Int      @id @default(autoincrement())
+//   title       String   @db.VarChar(100)
+//   description String   @db.VarChar(255)
+//   hyperlink   String?   @db.VarChar(100)
+
+//   paymentType PaymentTypes? @relation(fields: [paymentTypesId], references: [id])
+//   paymentTypesId Int?
+
+//   paymentTypesTitle String?   @db.VarChar(100)
+//   vatAmount Float  @db.Float
+//   fees Float  @db.Float
+//   totalAmount Float  @db.Float
+
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt @default(now())
+
+//   users Users? @relation(fields: [usersId], references: [id])
+//   usersId Int?
+
+//   orgNOCInfo OrgNOCInfo[]
+
+//   AppliedForms AppliedForms[]
+// }
+
+// model PaymentTypes {
+//   id          Int      @id @default(autoincrement())
+//   title       String   @db.VarChar(100)
+//   description String   @db.VarChar(255)
+//   hyperlink   String?   @db.VarChar(100)
+  
+//   imageLink String?   @db.VarChar(100)
+
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt @default(now())
+
+//   paymentInfo PaymentInfo[]
+// }
+
+// create paymentInfo
+export const CreatePaymentInfo = async (data) => {
+  try {
+    const paymentInfo = await db.PaymentInfo.create({
+      data: {
+        title: data.title,
+        description: data.description || 'N/A',
+        hyperlink: data.hyperlink || 'N/A',
+        // paymentTypesId: data.paymentTypesId,
+        // paymentTypesTitle: data.paymentTypesTitle,
+        vatAmount: data.vatAmount,
+        fees: data.fees,
+        totalAmount: data.totalAmount,
+      },
+    });
+    return paymentInfo;
+  } catch (error) {
+    console.error("CreatePaymentInfo", error);
     return [];
   }
 }
