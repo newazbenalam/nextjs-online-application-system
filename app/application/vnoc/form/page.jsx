@@ -42,14 +42,13 @@ export default function ApplicationPage() {
 
     localStorage.setItem("personalInfo", JSON.stringify(formDataObj));
 
-    const res = await  SetApplicationPersonalData(formDataObj, noticeId);
+    const res = await  SetApplicationPersonalData(formDataObj,noticeId);
     
     if (res.status === 'success') {
       setAlert(res.status);
       setTimeout(() => {
-        router.push("/application/payment");
-      }, 3000);
-      // window.location.href = "/application/payment";
+        router.push("/application/payment?appliedId="+res.appliedId);
+      }, 400);
     }
     
   };

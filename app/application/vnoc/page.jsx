@@ -4,13 +4,15 @@ import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import { GetNOCtypes } from "@/app/lib/actions/GetNocTypes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ApplicationPage() {
   const router = useRouter();
   const [nocTypes, setNocTypes] = useState([]);
   const [nocTypeId, setNocTypeId] = useState(null);
   const [nocType, setNocType] = useState("");
+  const [noticeId, setNoticeId] = useState(useSearchParams().get("noticeId"));
+
 
   router.prefetch("/application/vnoc/form");
 
@@ -26,7 +28,7 @@ export default function ApplicationPage() {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    router.push("/application/vnoc/form?nocTypeId=" + nocTypeId + "&nocType=" + nocType);
+    router.push("/application/vnoc/form?nocTypeId=" + nocTypeId + "&nocType=" + nocType + "&noticeId=" + noticeId);
   };
 
   const onChangeNocType = (e) => {

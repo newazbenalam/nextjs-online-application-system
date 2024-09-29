@@ -242,12 +242,12 @@ model PaymentTypes {
     //   paymentInfoId Int?
     // }
 
-    await AppliedFormFoo(noticeId, users, nocType, orgNOCInfo, patmentType);
+    const appliedId =  await AppliedFormFoo(noticeId, users, nocType, orgNOCInfo, patmentType);
 
 
     // console.log(email);
     // const users = await db.Users.findMany();
-    const respone = { status: "Application created successfully.", message: "Data saved successfully" };
+    const respone = { status: "success", message: "Data saved successfully", appliedId: appliedId };
     return respone;
   } catch (error) {
     console.error("SetApplicationPersonalData", error);
