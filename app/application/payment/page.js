@@ -28,7 +28,7 @@ export default function PaymentPage() {
     foo();
   }, []);
 
-  handleClick = () => {
+ const handleClick = () => {
     CreatePaymentInfo({ title: appliedData.title, appliedId: appliedId , totalAmount: totalFee , status: "done", paymentType: "online",  });
     // redirect to payment gateway
   }
