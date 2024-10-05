@@ -157,25 +157,34 @@ model PaymentTypes {
   paymentInfo PaymentInfo[]
 }
     */
-    
-    const users = await db.Users.create({
-      data: {
-        name: name,
-        email: email,
-        mobile: phone,
-        username: email,
-        password: phone,
-        fatherName: formData.fatherName || "N/A",
-        motherName: formData.motherName || "N/A",
-        presentAddress: formData.currentAddress,
-        permanentAddress: formData.parAddress,
-        dob: new Date(formData.dob || '1917-01-01'),
-        dobPlace: formData.dobPlace,
-        nid: formData.nid,
-        image: formData.image,
-        role: formData.role || "user",
+
+    var users = await db.Users.findFirst({
+      where: {
+        email: email
       },
     });
+
+    if (!users) {
+
+      users = await db.Users.create({
+        data: {
+          name: name,
+          email: email,
+          mobile: phone,
+          username: email,
+          password: phone,
+          fatherName: formData.fatherName || "N/A",
+          motherName: formData.motherName || "N/A",
+          presentAddress: formData.address,
+          permanentAddress: formData.parAddress,
+          dob: new Date(formData.dob || '1917-01-01'),
+          dobPlace: formData.dobPlace,
+          nid: formData.nid,
+          image: formData.image,
+          role: formData.role || "user",
+        },
+      });
+    }
 
     
     const varNoc = formData.nocTypeID;
@@ -259,24 +268,33 @@ model PaymentTypes {
 export const SetApplicationUserData = async (formData, noticeId) => {
 
   try {
-    const user = await db.Users.create({
-      data: {
-        name: formData.applicantName,
-        email: formData.email,
-        mobile: formData.applicantPhone,
-        username: formData.email,
-        password: formData.applicantPhone,
-        fatherName: formData.fatherName || "N/A",
-        motherName: formData.motherName || "N/A",
-        presentAddress: formData.currentAddress,
-        permanentAddress: formData.parAddress,
-        dob: new Date(formData.dob),
-        dobPlace: formData.dobPlace,
-        nid: formData.nid,
-        image: formData.image,
-        role: formData.role || "user",
+    var user = await db.Users.findFirst({
+      where: {
+        email: formData.email
       },
     });
+
+    if (!user) {
+
+      user = await db.Users.create({
+        data: {
+          name: formData.applicantName,
+          email: formData.email,
+          mobile: formData.applicantPhone,
+          username: formData.email,
+          password: formData.applicantPhone,
+          fatherName: formData.fatherName || "N/A",
+          motherName: formData.motherName || "N/A",
+          presentAddress: formData.currentAddress,
+          permanentAddress: formData.parAddress,
+          dob: new Date(formData.dob || '1917-01-01'),
+          dobPlace: formData.dobPlace,
+          nid: formData.nid,
+          image: formData.image,
+          role: formData.role || "user",
+        },
+      });
+    }
 
     console.log(user);
 
@@ -441,6 +459,19 @@ export const CreatePaymentInfo = async (data) => {
         totalAmount: data.totalAmount,
       },
     });
+    
+    // bind with applied form's payment info
+    const appliedForm = await db.AppliedForms.update({
+      where: {
+        id: parseInt(data.appliedId),
+      },
+      data: {
+        paymentInfoId: paymentInfo.id,
+      },
+    });
+    
+    console.log(paymentInfo.id);
+
     return paymentInfo;
   } catch (error) {
     console.error("CreatePaymentInfo", error);

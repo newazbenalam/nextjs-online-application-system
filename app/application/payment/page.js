@@ -1,9 +1,10 @@
 "use client";
 
-import { CreatePaymentInfo, GetAppliedForm, UpdateAppliedForm } from "@/app/lib/actions/SetApplicationsForm";
-import { useSearchParams } from "next/navigation";
+import { CreatePaymentInfo, GetAppliedForm } from "@/app/lib/actions/SetApplicationsForm";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import './style.css';
+import { Image } from "react-bootstrap";
 
 export default function PaymentPage() {
   const [alert, setAlert] = useState(false);
@@ -12,8 +13,12 @@ export default function PaymentPage() {
   );
   const [appliedData, setAppliedData] = useState(null);
   const [lateFee, setLateFee] = useState(0);
-  const [vat, setVat] = useState(0);
+  const [vat, setVat] = useState(0.0);
   const [totalFee, setTotalFee] = useState(0);
+  const [paymentType, setPaymentType] = useState("online");
+
+  const router = useRouter();
+
 
   useEffect(() => {
     const foo = async () => {
@@ -29,8 +34,22 @@ export default function PaymentPage() {
   }, []);
 
  const handleClick = () => {
-    CreatePaymentInfo({ title: appliedData.title, appliedId: appliedId , totalAmount: totalFee , status: "done", paymentType: "online",  });
+    const res = CreatePaymentInfo({ title: appliedData.title, appliedId: appliedId , totalAmount: totalFee , vatAmount: vat, fees: lateFee, status: "done", paymentType: paymentType,  });
     // redirect to payment gateway
+    if (!res.error) {
+      // const update = UpdateAppliedForm(appliedId, { status: "done" });
+      if (confirm("Payment Successful!")) {
+        // txt = "You pressed OK!";
+        router.push("/");
+      } else {
+        // txt = "You pressed Cancel!";
+        router.push("/");
+      }
+      if (update) {
+        // redirect to payment gateway
+        // window.location.href = "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
+      }
+    }
   }
 
   return (
@@ -72,13 +91,38 @@ export default function PaymentPage() {
                   <p className="col-6 col-lg-3 ">{"Payment Type: "}</p>
                   <p className="col-4 col-lg-2 text-end">{"Online"}</p>
                 </div>
+                {/* add radio button with payment method type bkash, stripe or card */}
+                <form >
+                  <div className="d-flex gap-3">
+                    <div className="">
+                      <Image src="/assets/bkash.png" alt="Bkash" width={80} height={80} className="rounded-4"/>
+                      <div class="form-check  my-1">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Bkash" onClick={(e) => setPaymentType(e.target.value)} required/>
+                        <label class="form-check-label" for="inlineRadio1">Bkash</label>
+                      </div>
+                    </div>
+                    <div className="">
+                      <Image src="/assets/nagad.webp" alt="Bkash" width={80} height={80} className="rounded-4"/>
+                      <div class="form-check my-1">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Nagad" onClick={(e) => setPaymentType(e.target.value)} required/>
+                        <label class="form-check-label" for="inlineRadio1">Nagad</label>
+                      </div>
+                    </div>
+                    
+                    {/* <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled/>
+                      <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+                    </div> */}
+                  </div>
 
-                <button
-                  className="btn btn-primary mt-2"
-                  onClick={() => handleClick}
-                >
-                  {"Pay Now"}
-                </button>
+                  <button
+                    className="btn btn-primary mt-2"
+                    onClick={handleClick}
+                    type="button"
+                  >
+                    {"Pay Now"}
+                  </button>
+                </form>
               </>
             )}
           </div>

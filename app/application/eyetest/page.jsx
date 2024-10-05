@@ -176,8 +176,8 @@ export default function ApplicationPage() {
                     required
                     type="text"
                     className="form-control"
-                    id="orgName"
-                    name="orgName"
+                    id="nid"
+                    name="nid"
                     placeholder="xxxxxxxxxx"
                   />
                 </div>

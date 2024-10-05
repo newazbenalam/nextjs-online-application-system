@@ -18,7 +18,7 @@ export const GetAuth = async (username, password) => {
       },
     });
 
-    (res = user), { error: users ? "Success" : "Wrong Credentials" };
+    const res = { users ,error: users ? "Success" : "Wrong Credentials" };
     return res;
   } catch (error) {
     console.error("GetAuth", error);
