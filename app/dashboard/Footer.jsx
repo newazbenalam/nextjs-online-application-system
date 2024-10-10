@@ -19,16 +19,7 @@ const Footer = () => {
               {year && (
                 <>
                   © {year}
-                  {/* , made with <i className="fa fa-heart"></i> by */}
-                  {/* <Link
-                    href="https://www.creative-tim.com"
-                    className="font-weight-bold"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Link href="https://www.github.com/newazbenalam"> Newaz </Link>
-                  </Link>
-                  for a better web. */}
+                 
                 </>
               )}
             </div>
@@ -37,12 +28,12 @@ const Footer = () => {
             <ul className="nav nav-footer justify-content-center justify-content-lg-end">
               <li className="nav-item">
                 <Link
-                  href="https://github.com/newazbenalam"
+                  href="https://github.com/Faria-Islam-Sumi"
                   className="nav-link text-muted"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Newaz Ben Alam
+                  Faria Islam Sumi
                 </Link>
               </li>
               <li className="nav-item">
