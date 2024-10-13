@@ -1,6 +1,6 @@
 "use client";
 
-import { CreatePaymentInfo, GetAppliedForm } from "@/app/lib/actions/SetApplicationsForm";
+import { CreatePaymentInfo, GetAppliedForm } from "@/app/lib/actions/getApplicationsForm";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import './style.css';

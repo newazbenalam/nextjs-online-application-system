@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GetAuth } from "@/app/lib/actions/GetAuthentication";
+import { GetAuth } from "@/app/lib/actions/getAuthentication";
 import Link from "next/link";
 
 const SignupForm = () => {

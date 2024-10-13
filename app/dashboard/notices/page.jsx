@@ -9,7 +9,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import NoticesTable from "./components/NoticesTable";
-import { CreateNotice, GetNotices } from "@/app/lib/actions/NoticesUsecase";
+import { CreateNotice, GetNotices } from "@/app/lib/actions/getNoticesUsecase";
 import { Button } from "react-bootstrap";
 
 export default function DashboardNotices() {

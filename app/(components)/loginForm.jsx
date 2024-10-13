@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GetAuth } from "@/app/lib/actions/GetAuthentication";
-import Link from "next/link";
+import { GetAuth } from "@/app/lib/actions/getAuthentication";
 
 const LoginForm = () => {
   const [state, setState] = useState( null, { error: null });

@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import LoginForm from "./(components)/loginForm";
+import LoginForm from "@/app/(components)/loginForm";
 import Link from "next/link";
 import Script from "next/script";
-import NoticeCard from "./(components)/NoticeCard";
-import { GetNotices } from "./lib/actions/NoticesUsecase";
-import { GetUsers } from "./lib/actions/UserUsecase";
+import NoticeCard from "@/app/(components)/NoticeCard";
+import { GetNotices } from "@/app/lib/actions/getNoticesUsecase";
+import { GetUsers } from "@/app/lib/actions/getUserUsecase";
 import "@/app/globals.css";
-import { GetImage } from "./lib/actions/GetImages";
+import { getImage } from "@/app/lib/actions/getImages";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -25,17 +25,15 @@ export default function Home() {
 
     // server actions
     async function start() {
-      const imgres = await GetImage("home-cover");
+      const imgres = await getImage("home-cover");
       console.log(imgres);
       setCoverImage(imgres.hyperlink);
-      const res = await GetNotices();
-      setNotices(res);
+      setNotices(await GetNotices());
     }
 
-    async function getUser() {
-      const res = await GetUsers();
-      setUsers(res);
-    }
+    const  getUser = async () =>
+      setUsers(await GetUsers());
+    
 
     // fetch api here
     // const res = fetch("http://localhost:3000/api/notices/" + notices).then((res) => {

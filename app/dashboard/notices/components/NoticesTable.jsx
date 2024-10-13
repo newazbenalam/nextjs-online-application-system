@@ -1,6 +1,6 @@
 "use client";
 
-import { DeleteNotice } from "@/app/lib/actions/NoticesUsecase";
+import { DeleteNotice } from "@/app/lib/actions/getNoticesUsecase";
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 // import { getCookies } from "@/app/lib/actions";

@@ -8,12 +8,12 @@ import React, { use, useEffect, useState } from "react";
 // import { revalidateLocalData } from "../tickets/hooks/revelidateTickets";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
-import { GetUsers } from "@/app/lib/actions/UserUsecase";
+import { GetUsers } from "@/app/lib/actions/getUserUsecase";
 import TicketTable from "@/app/(components)/TickketTable";
 
 export default function Dashboard() {
   const [users, setUsers] = useState(<LoadingSpinner />);
-  const [closedTickets, setClosedTickets] = useState(<LoadingSpinner />);
+  const [appliedApplications, setAppliedApplications] = useState(<LoadingSpinner />);
   const [customerSupport, setCustomerSupport] = useState(<LoadingSpinner />);
   const [servicesStatus, setServicesStatus] = useState(<LoadingSpinner />);
   const [ticketData, setTicketData] = useState(null);
@@ -24,6 +24,7 @@ export default function Dashboard() {
     const fetchUsers = async () => {
       const res = await  GetUsers();
       setUsers(res);
+      setAppliedApplications(ge);
     };
     
 
@@ -87,7 +88,7 @@ export default function Dashboard() {
                         {" Application"}
                       </p>
                       <h5 className="font-weight-bolder pl-1">
-                        {closedTickets}
+                        {appliedApplications}
                       </h5>
                       <p className="mb-0">
                         <span className="text-success text-sm font-weight-bolder">
@@ -327,7 +328,7 @@ export default function Dashboard() {
                     <div className="d-flex flex-column">
                       <h6 className="mb-1 text-dark text-sm">Tickets</h6>
                       <span className="text-xs">
-                        { closedTickets } closed,{" "}
+                        { appliedApplications } closed,{" "}
                         <span className="font-weight-bold"> {users.length } open</span>
                       </span>
                     </div>

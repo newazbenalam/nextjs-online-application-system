@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from "react";
 // import { revalidateLocalData } from "../tickets/hooks/revelidateTickets";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
-import { GetUsers } from "@/app/lib/actions/UserUsecase";
+import { GetUsers } from "@/app/lib/actions/getUserUsecase";
 import TicketTable from "@/app/(components)/TickketTable";
 
 export default function DashboardUsers() {

@@ -3,7 +3,7 @@
 import db from '@/app/lib/db.js';
 
 // find single image by title
-export const GetImage = async (title) => {
+export const getImage = async (title) => {
   try {
 
     const image = await db.Images.findFirst({
@@ -11,7 +11,7 @@ export const GetImage = async (title) => {
         title: title,
       },
     })
-    console.log("GetImage", image);
+    console.log("getImage", image);
     return image;
 
   } catch (error) {

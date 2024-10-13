@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { GetNOCtypes } from "../lib/actions/GetNocTypes";
+import { GetNOCtypes } from "../lib/actions/getNocTypes";
 
 export default function ApplicationPage() {
   const [nocTypes, setNocTypes] = useState([]);

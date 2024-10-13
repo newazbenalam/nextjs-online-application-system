@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { GetNOCtypes } from "@/app/lib/actions/GetNocTypes";
+import { GetNOCtypes } from "@/app/lib/actions/getNocTypes";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ApplicationPage() {

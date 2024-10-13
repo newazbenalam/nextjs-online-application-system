@@ -4,7 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { SetApplicationPersonalData } from "@/app/lib/actions/SetApplicationsForm";
+import { SetApplicationPersonalData } from "@/app/lib/actions/getApplicationsForm";
 
 export default function ApplicationPage() {
   const [noticeId, setNoticeId] = useState(useSearchParams().get("noticeId"));
