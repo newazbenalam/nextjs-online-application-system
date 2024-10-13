@@ -75,7 +75,7 @@ export const deleteNOCtype = async (id) => {
     const deletedNOCtype = await db.nOCtypes.delete({
       where: { id }
     });
-    return deletedNOCtype;
+    return {status: "success", message: "NOC type deleted successfully"};
 
   } catch (error) {
     console.error("DeleteNOCtype", error);

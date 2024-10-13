@@ -14,6 +14,19 @@ datasource db {
 }
 
 
+enum Role {
+  user
+  admin
+  superAdmin
+}
+
+enum Status {
+  Pending
+  Approved
+  Rejected
+  OnHold
+}
+
 model Users {
   id       Int    @id @default(autoincrement()) 
   name     String @db.VarChar(50)
@@ -204,3 +217,4 @@ model Images {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt @default(now())
 }
+

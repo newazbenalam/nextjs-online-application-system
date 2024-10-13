@@ -310,7 +310,7 @@ export default function Dashboard() {
         <div className="col-lg-5">
           <div className="card">
             <div className="card-header pb-0 p-3">
-              <h6 className="mb-0">Categories</h6>
+              <h6 className="mb-0">Category</h6>
             </div>
             <div className="card-body p-3">
               <ul className="list-group">

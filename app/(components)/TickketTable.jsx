@@ -164,7 +164,8 @@ export default function TicketTable({ ticketData, classNamez, params, perPage = 
   const handleRowClick = (ticketId) => {
     if (session) router.push(`/dashboard/tickets/${ticketId}`);
     else {
-      router.push(`${pathname}/${ticketId}`);
+      // router.push(`${pathname}/${ticketId}`);
+      router.push(`/dashboard/users/${ticketId}`);
     }
   };
 

@@ -174,6 +174,15 @@ export default function NoticesTable({
     }
   };
 
+
+  const handelDelete = async (id) => {
+    const res = await DeleteNotice(id);
+    if (res) {
+      const newTickets = ticketData.filter((ticket) => ticket.id !== id);
+      setParsedTicketData(newTickets);
+    }
+  };
+
   return (
     <>
       <div className={classNamez}>
@@ -334,7 +343,7 @@ export default function NoticesTable({
 
                     <td className="align-middle">
                       <button
-                        onClick={() => DeleteNotice(ticket?.id)}
+                        onClick={() =>  handelDelete( ticket?.id ) }
                         className="btn btn-link text-secondary mb-0"
                       >
                         <i

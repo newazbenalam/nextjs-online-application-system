@@ -1,6 +1,7 @@
 "use server";
 
 import db from "@/app/lib/db.js";
+import { Role } from "@prisma/client";
 
 export const GetAuth = async (username, password) => {
   try {
@@ -35,3 +36,22 @@ export const getLogout = async () => {
     return { error: "Error" };
   }
 };
+
+export const createUser = async (data) => {
+  try {
+    const createdUser = await db.Users.create({
+      data: {
+        email: data.email,
+        username: data.email,
+        password: data.password,
+        name: data.name,
+        mobile: data.mobile,
+        role: 'user',
+      },
+    });
+    return createdUser;
+  } catch (error) {
+    console.error("CreateUser", error);
+    return { error, message: "Failed to create user" };
+  }
+}

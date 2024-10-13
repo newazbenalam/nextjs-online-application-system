@@ -1,25 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { GetAuth } from "@/app/lib/actions/getAuthentication";
+import { createUser, GetAuth } from "@/app/lib/actions/getAuthentication";
 import Link from "next/link";
 
 const SignupForm = () => {
   const [state, setState] = useState( null, { error: null });
+  const [data, setData] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const newState = await GetAuth(formData.get("email"), formData.get("password"));
-    setState(newState);
-    console.log(newState.error);
-    if (newState === "Wrong Credentials") {
-      
-      return;
-    }
-    if (newState.error === "Success"){
+    // const formData = new FormData(event.target);
+    // const newState = await GetAuth(formData.get("email"), formData.get("password"));
+    // setState(newState);
+    // console.log(newState.error);
 
-      window.location.href = "/dashboard"  // hard reload to update the UI as a replacement for the redirect.
+    const newState = await createUser(data);
+    if (newState) {
+      window.location.href = "/";
     }
   };
 
@@ -31,6 +29,7 @@ const SignupForm = () => {
           name="email"
           className="form-control form-control-lg mb-3"
           placeholder="Email"
+          onChange={(e) => setData({ ...data, email: e.target.value })}
           required
         />
         <input
@@ -38,6 +37,7 @@ const SignupForm = () => {
           name="name"
           className="form-control form-control-lg mb-3"
           placeholder="Name"
+          onChange={(e) => setData({ ...data, name: e.target.value })}
           required
         />
         <input
@@ -45,6 +45,7 @@ const SignupForm = () => {
           name="mobile"
           className="form-control form-control-lg mb-3"
           placeholder="Mobile"
+          onChange={(e) => setData({ ...data, mobile: e.target.value })}
           required
         />
         <input
@@ -52,6 +53,7 @@ const SignupForm = () => {
           name="password"
           className="form-control form-control-lg mb-3"
           placeholder="Password"
+          onChange={(e) => setData({ ...data, password: e.target.value })}
           required
         />
         {state && <p className="alert-info text-white text-lg px-4 py-2 border-radius-md">{state.error}</p>}

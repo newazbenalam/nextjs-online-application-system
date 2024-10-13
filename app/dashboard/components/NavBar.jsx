@@ -115,16 +115,29 @@ export default function NavBar() {
               <span className="nav-link-text ms-1">NOC Types</span>
             </Link>
           </li>
-          {userRole === ("ADMIN" || "EMPLOYEE") && (
-            <li className="nav-item">
+
+          <li className="nav-item">
               <Link
-                className={getLinkClass("/dashboard/dashboard/tables")}
-                href="/dashboard/dashboard/tables"
+                className={getLinkClass("/dashboard/payments")}
+                href="/dashboard/payments"
               >
                 <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                 </div>
-                <span className="nav-link-text ms-1">Tables</span>
+                <span className="nav-link-text ms-1">Invoices</span>
+              </Link>
+            </li>
+
+          {userRole === ("ADMIN" || "EMPLOYEE") && (
+            <li className="nav-item">
+              <Link
+                className={getLinkClass("/dashboard/payments")}
+                href="/dashboard/payments"
+              >
+                <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                  <i className="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                </div>
+                <span className="nav-link-text ms-1">Invoices</span>
               </Link>
             </li>
           )}
@@ -152,7 +165,7 @@ export default function NavBar() {
               <span className="nav-link-text ms-1">RTL</span>
             </Link>
           </li> */}
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link
               className={getLinkClass("/dashboard/dashboard/tickets/lists")}
               href="/dashboard/dashboard/tickets/lists"
@@ -162,8 +175,8 @@ export default function NavBar() {
               </div>
               <span className="nav-link-text ms-1">View Tickets</span>
             </Link>
-          </li>
-          <li className="nav-item">
+          </li> */}
+          {/* <li className="nav-item">
             <Link
               className={getLinkClass("/dashboard/notices")}
               href="/dashboard/notices"
@@ -173,7 +186,7 @@ export default function NavBar() {
               </div>
               <span className="nav-link-text ms-1">Notices</span>
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item mt-3">
             <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
               Account Control

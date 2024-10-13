@@ -1,18 +1,11 @@
 "use client";
 
-import { deleteNOCtype } from "@/app/lib/actions/getNocTypes";
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 // import { getCookies } from "@/app/lib/actions";
 
-export default function NOCtypesTable({
-  ticketData,
-  classNamez,
-  params,
-  perPage = 8,
-}) {
+export default function PaymentsTable({ ticketData, classNamez, params, perPage = 8 }) {
   const router = useRouter();
-
   const [order, setOrder] = useState("asc");
   const [sortedColumn, setSortedColumn] = useState("");
   const [parsedTicketData, setParsedTicketData] = useState([]);
@@ -169,17 +162,9 @@ export default function NOCtypesTable({
 
   const pathname = usePathname();
   const handleRowClick = (ticketId) => {
-    if (session) router.push(`${pathname}/${ticketId}`);
+    if (session) router.push(`/dashboard/tickets/${ticketId}`);
     else {
       router.push(`${pathname}/${ticketId}`);
-    }
-  };
-
-  const handleDeleteNOCtype = (id) => async () => {
-    const res = await deleteNOCtype(id);
-    if (res){
-      const newTicketData = ticketData.filter((ticket) => ticket.id !== id);
-      setParsedTicketData(newTicketData);
     }
   };
 
@@ -194,28 +179,39 @@ export default function NOCtypesTable({
                   onClick={() => sort("id")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer"
                 >
-                  ID {getArrow("id")}
+                  Payment ID {getArrow("id")}
                 </th>
                 <th
-                  onClick={() => sort("title")}
+                  onClick={() => sort("subject")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer"
                 >
-                  Title {getArrow("title")}
+                  Total Amount {getArrow("subject")}
                 </th>
                 <th
-                  onClick={() => sort("description")}
+                  onClick={() => sort("category")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
                 >
-                  Description {getArrow("description")}
+                  Org Name {getArrow("category")}
                 </th>
-
                 <th
-                  onClick={() => sort("hyperlink")}
+                  onClick={() => sort("category")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
                 >
-                  hyperlink {getArrow("hyperlink")}
+                  Applicant Name {getArrow("category")}
                 </th>
-                {/* <th
+                <th
+                  onClick={() => sort("category")}
+                  className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
+                >
+                  Applicant Email {getArrow("category")}
+                </th>
+                <th
+                  onClick={() => sort("category")}
+                  className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
+                >
+                  Payment Type {getArrow("category")}
+                </th>
+                  {/* <th
                   onClick={() => sort("priority")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
                 >
@@ -239,12 +235,7 @@ export default function NOCtypesTable({
                 >
                   Created At {getArrow("createdAt")}
                 </th>
-
-                <th style={{ maxWidth: "5px" }}>
-                  {/* <i className="ni ni-fat-remove text-xs text-secondary"></i> */}
-                </th>
-
-                {/* <th style={{ maxWidth: "5px" }}></th> */}
+                <th style={{ maxWidth: "5px" }}></th>
               </tr>
             </thead>
             <tbody>
@@ -252,14 +243,10 @@ export default function NOCtypesTable({
                 currentItems.map((ticket, index) => (
                   <tr
                     key={index}
-                    // onClick={() => handleRowClick(ticket.id)}
+                    onClick={() => handleRowClick(ticket.id)}
                     className="cursor-pointer"
                   >
-                    <td
-                      key={index}
-                      onClick={() => handleRowClick(ticket.id)}
-                      className="cursor-pointer"
-                    >
+                    <td>
                       <div className="d-flex px-2">
                         <div className="my-auto pl-0">
                           <h6 className="mx-2 mb-0 text-xs">{ticket?.id}</h6>
@@ -267,23 +254,19 @@ export default function NOCtypesTable({
                       </div>
                     </td>
 
-                    <td
-                      key={index}
-                      onClick={() => handleRowClick(ticket.id)}
-                      className="cursor-pointer"
-                    >
+                    <td>
                       <div className="d-flex px-2">
                         <div className="my-auto pl-0">
                           <h6
-                            className="mx-2 mb-0 text-xs bg-black:hover hover:text-white"
+                            className="mx-2 mb-0 text-xs text-truncate bg-black:hover hover:text-white"
                             style={{
-                              maxWidth: "250px",
+                              maxWidth: "180px",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                             }}
                           >
-                            {ticket?.title}
+                            {ticket?.totalAmount + " BDT"}
                           </h6>
                         </div>
                       </div>
@@ -301,7 +284,7 @@ export default function NOCtypesTable({
                               textOverflow: "ellipsis",
                             }}
                           >
-                            {ticket?.description}
+                            {ticket?.AppliedForms[0]?.orgNOCInfo?.title}
                           </h6>
                         </div>
                       </div>
@@ -319,13 +302,91 @@ export default function NOCtypesTable({
                               textOverflow: "ellipsis",
                             }}
                           >
-                            {ticket?.hyperlink}
+                            {ticket?.AppliedForms[0]?.users?.name}
+                          </h6>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex px-2">
+                        <div className="my-auto pl-0">
+                          <h6
+                            className="mx-2 mb-0 text-xs text-truncate bg-black:hover hover:text-white"
+                            style={{
+                              maxWidth: "180px",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {ticket?.AppliedForms[0]?.users?.name}
+                          </h6>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div className="d-flex px-2">
+                        <div className="my-auto pl-0">
+                          <h6
+                            className="mx-2 mb-0 text-xs text-truncate bg-black:hover hover:text-white"
+                            style={{
+                              maxWidth: "180px",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {ticket?.paymentType?.title ?? "Office Payment"}
                           </h6>
                         </div>
                       </div>
                     </td>
 
 
+                    {/* <td>
+                      <span className="badge badge-dot me-4 border border-gray-700">
+                        <i className="bg-info"></i>
+                        <span
+                          className={getCategoryColor(
+                            ticket?.category || "GENERAL"
+                          )}
+                        >
+                          {ticket?.category + " "}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span className="badge badge-dot me-4 border border-gray-700">
+                        <i className="bg-info"></i>
+                        <span
+                          className={getPriorityColor(
+                            ticket?.priority || "MEDIUM"
+                          )}
+                        >
+                          {ticket?.priority + " "}
+                        </span>
+                      </span>
+                    </td>
+                    <td className="text-sm">
+                      <span className={getStatusColor(ticket?.status)}>
+                        {ticket?.status + " "}
+                      </span>
+                    </td>
+                    <td>
+                      <h6
+                        className="mb-0 text-xs text-truncate"
+                        style={{
+                          maxWidth: "200px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {ticket?.description}
+                      </h6>
+                    </td> */}
 
                     <td>
                       <h6
@@ -340,16 +401,11 @@ export default function NOCtypesTable({
                         {formatDate(ticket?.createdAt)}
                       </h6>
                     </td>
-
                     <td className="align-middle">
-                      <button
-                        onClick={ handleDeleteNOCtype(ticket.id) }
-                        className="btn btn-link text-secondary mb-0"
-                      >
+                      <button className="btn btn-link text-secondary mb-0">
                         <i
-                          className="btn btn-secondary fa fa-trash text-xs text-center m-0"
+                          className="fa fa-ellipsis-v text-xs"
                           aria-hidden="true"
-                          style={{ background: "crimson", height: "2rem" }}
                         ></i>
                       </button>
                     </td>

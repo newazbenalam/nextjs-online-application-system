@@ -23,10 +23,6 @@ export default function NOCtypes() {
     const fetchUsers = async () => {
       setNOCtypes(await getNocTypes());
     };
-    
-
-
-
 
     // revalidateData(prevData);
     fetchUsers();
@@ -45,7 +41,6 @@ export default function NOCtypes() {
       setNOCtypes([...nOCtypes, res]);
       e.target.reset();
     }
-    console.log(res);
   };
 
 

@@ -1,10 +1,12 @@
 "use client";
 
+import "@/app/globals.css";
 import Script from 'next/script';
 import React, { useEffect } from 'react'
 import NoticeCard from '@/app/(components)/NoticeCard';
 import Link from 'next/link';
 import SignupForm from '@/app/(components)/signupform';
+
 
 export default function SignupPage() {
 
@@ -72,7 +74,7 @@ export default function SignupPage() {
         <div className="page-header min-vh-100">
           <div className="container">
             <div className="row">
-              <div className="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+              <div className="card col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                 <div className="card card-plain">
                   <div className="card-header pb-0 text-start">
                     <h4 className="font-weight-bolder">Sign up</h4>
