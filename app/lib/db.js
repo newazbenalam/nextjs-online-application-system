@@ -1,17 +1,16 @@
-import { PrismaClient } from '@prisma/client'
+// make a single connection instance to the database which can be used in all the actions.
 
-const prismaClientSingleton = () => {
-  return new PrismaClient()
-}
+// import { PrismaClient } from '@prisma/client';
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+// const db = global.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+// if (process.env.NODE_ENV !== 'production') {
+//   global.prisma = db; // Preserve the Prisma client in development mode
+// }
 
-const db = prisma;
-export default db;
-
-
-// import { PrismaClient } from "@prisma/client";
-// const db = new PrismaClient();
 // export default db;
+
+
+import { PrismaClient } from "@prisma/client";
+const db = new PrismaClient();
+export default db;
