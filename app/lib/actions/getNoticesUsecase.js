@@ -5,10 +5,14 @@ import db from '@/app/lib/db.js';
 // server actions
 // CURD
 
-export const GetNotices = async () => {
+export const getNotices = async () => {
   try {
 
-    const notices = await db.Notices.findMany();
+    const notices = await db.notices.findMany({
+      include: {
+        AppliedForms: true
+      }
+    });
     return notices;
 
   } catch (error) {
@@ -17,10 +21,15 @@ export const GetNotices = async () => {
   }
 }
 
+export const getNoticesCount = async () => {
+  return await db.notices.count();
+}
+  
+
 export const GetNotice = async (id) => {
   try {
 
-    const notice = await db.Notices.findOne({
+    const notice = await db.notices.findOne({
       where: { id }
     });
     return notice;
@@ -34,7 +43,7 @@ export const GetNotice = async (id) => {
 export const CreateNotice = async (title, description, hyperlink) => {
   try {
 
-    const createdNotice = await db.Notices.create({
+    const createdNotice = await db.notices.create({
       data: {
         title,
         description ,
@@ -52,7 +61,7 @@ export const CreateNotice = async (title, description, hyperlink) => {
 export const UpdateNotice = async (id, notice) => {
   try {
 
-    const updatedNotice = await db.Notices.update({
+    const updatedNotice = await db.notices.update({
       where: { id },
       data: notice
     });
@@ -68,7 +77,7 @@ export const UpdateNotice = async (id, notice) => {
 export const DeleteNotice = async (id) => {
   try {
 
-    const deletedNotice = await db.Notices.delete({
+    const deletedNotice = await db.notices.delete({
       where: { id }
     });
     return deletedNotice;

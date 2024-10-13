@@ -1,36 +1,31 @@
 "use client";
 
 import "@/app/globals.css";
-import React, { use, useEffect, useState } from "react";
-// import { getTicketsStatus } from "./hooks/GetTicketsStatus";
-// import { getCookies } from "@/app/lib/actions";
-// import TicketTable from "../Tickets/components/TickketTable";
-// import { revalidateLocalData } from "../tickets/hooks/revelidateTickets";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import { GetUsers } from "@/app/lib/actions/getUserUsecase";
 import TicketTable from "@/app/(components)/TickketTable";
+import { getApplicationsCount, getInvoicesCount } from "@/app/lib/actions/getApplicationsUsecases";
+import { getNotices, getNoticesCount } from "@/app/lib/actions/getNoticesUsecase";
 
 export default function Dashboard() {
   const [users, setUsers] = useState(<LoadingSpinner />);
   const [appliedApplications, setAppliedApplications] = useState(<LoadingSpinner />);
-  const [customerSupport, setCustomerSupport] = useState(<LoadingSpinner />);
-  const [servicesStatus, setServicesStatus] = useState(<LoadingSpinner />);
+  const [invoice, setInvoice] = useState(<LoadingSpinner />);
+  const [notices, setNotices] = useState(<LoadingSpinner />);
   const [ticketData, setTicketData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await  GetUsers();
-      setUsers(res);
-      setAppliedApplications(ge);
+      setUsers(await  GetUsers())
+      setAppliedApplications(await getApplicationsCount());
+      setInvoice(await getInvoicesCount());
+      setNotices(await getNotices());
     };
     
-
-
-
-
     // revalidateData(prevData);
     fetchUsers();
     setIsLoading(false);
@@ -118,16 +113,16 @@ export default function Dashboard() {
                 <div className="col-8">
                   <div className="numbers">
                     <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                      Customers Support
+                      New Invoices
                     </p>
                     <h5 className="font-weight-bolder pl-1">
-                      {customerSupport}
+                      {invoice}
                     </h5>
                     <p className="mb-0">
                       <span className="text-danger text-sm font-weight-bolder">
                         {/* -2% */}
                       </span>
-                      Last online 30 minutes ago
+                      Total 10 invoices so far
                     </p>
                   </div>
                 </div>
@@ -151,10 +146,10 @@ export default function Dashboard() {
                 <div className="col-8">
                   <div className="numbers">
                     <p className="text-sm mb-0 text-uppercase font-weight-bold">
-                      Services Status
+                      Notices
                     </p>
                     <h5 className="font-weight-bolder pl-1">
-                      {servicesStatus}
+                      {notices.length}
                     </h5>
                     <p className="mb-0">
                       <span className="text-success text-sm font-weight-bolder">
@@ -320,16 +315,17 @@ export default function Dashboard() {
             <div className="card-body p-3">
               <ul className="list-group">
                 
-                <li className="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                { Array.isArray(notices) && notices.length > 0 ? notices.map((e, index) => (
+                  <li key={e.id} className="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                   <div className="d-flex align-items-center">
                     <div className="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                       <i className="ni ni-tag text-white opacity-10"></i>
                     </div>
                     <div className="d-flex flex-column">
-                      <h6 className="mb-1 text-dark text-sm">Tickets</h6>
+                      <h6 className="mb-1 text-dark text-sm">{e.title}</h6>
                       <span className="text-xs">
-                        { appliedApplications } closed,{" "}
-                        <span className="font-weight-bold"> {users.length } open</span>
+                        { e.AppliedForms.length } candidates applied{" "}
+                        {/* <span className="font-weight-bold"> {users.length } open</span> */}
                       </span>
                     </div>
                   </div>
@@ -339,7 +335,9 @@ export default function Dashboard() {
                     </button>
                   </div>
                 </li>
-                <li className="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                )) : <p>No applications available</p>}
+
+                {/* <li className="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                   <div className="d-flex align-items-center">
                     <div className="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                       <i className="ni ni-box-2 text-white opacity-10"></i>
@@ -357,7 +355,7 @@ export default function Dashboard() {
                       <i className="ni ni-bold-right" aria-hidden="true"></i>
                     </button>
                   </div>
-                </li>
+                </li> */}
                 
               </ul>
             </div>

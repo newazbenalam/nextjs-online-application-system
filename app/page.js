@@ -5,7 +5,7 @@ import LoginForm from "@/app/(components)/loginForm";
 import Link from "next/link";
 import Script from "next/script";
 import NoticeCard from "@/app/(components)/NoticeCard";
-import { GetNotices } from "@/app/lib/actions/getNoticesUsecase";
+import { getNotices } from "@/app/lib/actions/getNoticesUsecase";
 import { GetUsers } from "@/app/lib/actions/getUserUsecase";
 import "@/app/globals.css";
 import { getImage } from "@/app/lib/actions/getImages";
@@ -18,17 +18,13 @@ export default function Home() {
   const [coverImage, setCoverImage] = useState(null);
 
   useEffect(() => {
-    // const start = async () => {
-    //   const res = await GetNotices();
-    //   setNotices(res);
-    // }
 
     // server actions
     async function start() {
       const imgres = await getImage("home-cover");
       console.log(imgres);
       setCoverImage(imgres.hyperlink);
-      setNotices(await GetNotices());
+      setNotices(await getNotices());
     }
 
     const  getUser = async () =>
