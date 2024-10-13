@@ -9,7 +9,17 @@
 import db from '@/app/lib/db.js';
 
 export const getApplications = async () => {
-  return await db.appliedForms.findMany();
+  return await db.appliedForms.findMany({
+    include: {
+      users: true,
+      notices: true,
+      paymentInfo: true,
+      orgNOCInfo: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 }
 
 export const getApplicationsCount = async (id) => {

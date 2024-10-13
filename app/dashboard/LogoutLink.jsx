@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 // import { logOut } from "../lib/actions.js";
 
 function LogoutLink() {
   const [state, setState] = useState({ error: null });
+  const router = useRouter();
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -11,6 +13,7 @@ function LogoutLink() {
     // setState(newState);
     // await new Promise((resolve) => setTimeout(resolve, 400));
     // window.location.reload();
+    router.push("/");
   };
 
   return (

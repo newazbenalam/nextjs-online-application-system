@@ -75,7 +75,7 @@ export default function Dashboard() {
               <div className="row">
                 <div className="col-8">
                   <Link
-                    href={"/dashboard/tickets/lists?status=CLOSED"}
+                    href={"/dashboard/applications"}
                     className="hover-decorate"
                   >
                     <div className="numbers">

@@ -25,3 +25,13 @@ export const GetAuth = async (username, password) => {
     return { error: "Wrong Credentials" };
   }
 };
+
+
+export const getLogout = async () => {
+  try {
+    return { error: "Success" , status: 200};
+  } catch (error) {
+    console.error("getLogout", error);
+    return { error: "Error" };
+  }
+};

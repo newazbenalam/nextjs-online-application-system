@@ -45,14 +45,14 @@ export default function NavBar() {
             className="navbar-brand-img h-auto w-15"
             alt="main_logo"
           /> */}
-          <h5 className="font-weight-bold pr-2">HTMS  </h5>
+          <h5 className="font-weight-bold pr-2">Online DoS  </h5>
         </Link>
       </div>
       <hr className="horizontal dark mt-0" />
       <div className="w-auto" id="sidenav-collapse-main">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className={getLinkClass("/admin/dashboard")} href="/admin/dashboard">
+            <Link className={getLinkClass("/dashboard")} href="/dashboard">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
@@ -60,15 +60,15 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/admin/dashboard/applications")} href="/admin/dashboard/applications">
+            <Link className={getLinkClass("/dashboard/applications")} href="/dashboard/applications">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                <i className="ni ni-bullet-list-67 text-primary text-sm opacity-10"></i>
               </div>
               <span className="nav-link-text ms-1">Applications</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/admin/dashboard/users")} href="/admin/dashboard/users">
+            <Link className={getLinkClass("/dashboard/users")} href="/dashboard/users">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-user-run text-primary text-sm opacity-10"></i>
               </div>
@@ -76,7 +76,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/admin/dashboard/reports")} href="/admin/dashboard/reports">
+            <Link className={getLinkClass("/dashboard/reports")} href="/dashboard/reports">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
@@ -84,7 +84,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/admin/dashboard/training-center")} href="/admin/dashboard/trainingenter">
+            <Link className={getLinkClass("/dashboard/training-center")} href="/dashboard/trainingenter">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
@@ -94,8 +94,8 @@ export default function NavBar() {
           {userRole === ("ADMIN" || "EMPLOYEE") && (
             <li className="nav-item">
               <Link
-                className={getLinkClass("/admin/dashboard/dashboard/knowledge/create")}
-                href="/admin/dashboard/dashboard/knowledge/create"
+                className={getLinkClass("/dashboard/dashboard/knowledge/create")}
+                href="/dashboard/dashboard/knowledge/create"
               >
                 <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="ni  ni-fat-add ni-4x text-primary text-sm opacity-10"></i>
@@ -106,8 +106,8 @@ export default function NavBar() {
           )}
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/dashboard/knowledge")}
-              href="/admin/dashboard/dashboard/knowledge"
+              className={getLinkClass("/dashboard/dashboard/knowledge")}
+              href="/dashboard/dashboard/knowledge"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-album-2 text-primary text-sm opacity-10"></i>
@@ -118,8 +118,8 @@ export default function NavBar() {
           {userRole === ("ADMIN" || "EMPLOYEE") && (
             <li className="nav-item">
               <Link
-                className={getLinkClass("/admin/dashboard/dashboard/tables")}
-                href="/admin/dashboard/dashboard/tables"
+                className={getLinkClass("/dashboard/dashboard/tables")}
+                href="/dashboard/dashboard/tables"
               >
                 <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
@@ -129,7 +129,7 @@ export default function NavBar() {
             </li>
           )}
           {/* <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/billing')} href="/admin/dashboard/dashboard/billing">
+            <Link className={getLinkClass('/dashboard/billing')} href="/dashboard/dashboard/billing">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-credit-card text-success text-sm opacity-10"></i>
               </div>
@@ -137,7 +137,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/virtual-reality')} href="/admin/dashboard/dashboard/virtual-reality">
+            <Link className={getLinkClass('/dashboard/virtual-reality')} href="/dashboard/dashboard/virtual-reality">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-app text-info text-sm opacity-10"></i>
               </div>
@@ -145,7 +145,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass('/dashboard/rtl')} href="/admin/dashboard/dashboard/rtl">
+            <Link className={getLinkClass('/dashboard/rtl')} href="/dashboard/dashboard/rtl">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-world-2 text-danger text-sm opacity-10"></i>
               </div>
@@ -154,8 +154,8 @@ export default function NavBar() {
           </li> */}
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/dashboard/tickets/lists")}
-              href="/admin/dashboard/dashboard/tickets/lists"
+              className={getLinkClass("/dashboard/dashboard/tickets/lists")}
+              href="/dashboard/dashboard/tickets/lists"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-credit-card text-info text-sm opacity-10"></i>
@@ -165,8 +165,8 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/notices")}
-              href="/admin/dashboard/notices"
+              className={getLinkClass("/dashboard/notices")}
+              href="/dashboard/notices"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-collection text-info text-sm opacity-10"></i>
@@ -181,8 +181,8 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/dashboard/profile")}
-              href="/admin/dashboard/dashboard/profile"
+              className={getLinkClass("/dashboard/dashboard/profile")}
+              href="/dashboard/dashboard/profile"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -192,8 +192,8 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/settings")}
-              href="/admin/dashboard/settings"
+              className={getLinkClass("/dashboard/settings")}
+              href="/dashboard/settings"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-settings-gear-65 text-dark text-sm opacity-10"></i>
@@ -204,8 +204,8 @@ export default function NavBar() {
           {userRole === ("ADMIN" || "EMPLOYEE") && (
           <li className="nav-item">
             <Link
-              className={getLinkClass("/admin/dashboard/dashboard/sign-in")}
-              href="/admin/dashboard/dashboard/sign-in"
+              className={getLinkClass("/dashboard/dashboard/sign-in")}
+              href="/dashboard/dashboard/sign-in"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
