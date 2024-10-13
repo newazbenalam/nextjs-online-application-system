@@ -1,20 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { GetNOCtypes } from "../lib/actions/getNocTypes";
+import { getNocTypes } from "../lib/actions/getNocTypes";
 
 export default function ApplicationPage() {
   const [nocTypes, setNocTypes] = useState([]);
 
   useEffect(() => {
-    const getNocTypes = async () => {
-      const res = await GetNOCtypes();
+    const runner = async () => {
+      const res = await getNocTypes();
       setNocTypes(res);
     }
 
-    getNocTypes();
+    runner();
   }  , []);
 
 

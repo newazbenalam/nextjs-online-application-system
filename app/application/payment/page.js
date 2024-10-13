@@ -45,10 +45,10 @@ export default function PaymentPage() {
         // txt = "You pressed Cancel!";
         router.push("/");
       }
-      if (update) {
+      // if (update) {
         // redirect to payment gateway
         // window.location.href = "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
-      }
+      // }
     }
   }
 

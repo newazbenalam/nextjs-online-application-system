@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
-import { GetNOCtypes } from "@/app/lib/actions/getNocTypes";
+import { getNocTypes } from "@/app/lib/actions/getNocTypes";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ApplicationPage() {
@@ -17,12 +17,11 @@ export default function ApplicationPage() {
   router.prefetch("/application/vnoc/form");
 
   useEffect(() => {
-    const getNocTypes = async () => {
-      const res = await GetNOCtypes();
-      setNocTypes(res);
+    const runner = async () => {
+      setNocTypes(await getNocTypes());
     };
 
-    getNocTypes();
+    runner();
   }, []);
 
   const onSubmit = (e) => {

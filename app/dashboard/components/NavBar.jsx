@@ -86,7 +86,7 @@ export default function NavBar() {
           <li className="nav-item">
             <Link className={getLinkClass("/dashboard/organizations")} href="/dashboard/organizations">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                <i className="ni ni-collection text-primary text-sm opacity-10"></i>
               </div>
               <span className="nav-link-text ms-1">Organizations</span>
             </Link>
@@ -106,13 +106,13 @@ export default function NavBar() {
           )}
           <li className="nav-item">
             <Link
-              className={getLinkClass("/dashboard/dashboard/knowledge")}
-              href="/dashboard/dashboard/knowledge"
+              className={getLinkClass("/dashboard/noctypes")}
+              href="/dashboard/noctypes"
             >
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-album-2 text-primary text-sm opacity-10"></i>
               </div>
-              <span className="nav-link-text ms-1">Knowledge Base</span>
+              <span className="nav-link-text ms-1">NOC Types</span>
             </Link>
           </li>
           {userRole === ("ADMIN" || "EMPLOYEE") && (
