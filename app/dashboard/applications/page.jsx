@@ -1,6 +1,6 @@
 'use client';
 
-import ApplicationsTable from '@/app/(components)/ApplicationsTable';
+import ApplicationsTable from './ApplicationsTable';
 import LoadingSpinner from '@/app/(components)/LoadingSpinner'
 import { getApplications } from '@/app/lib/actions/getApplicationsUsecases';
 import Link from 'next/link'

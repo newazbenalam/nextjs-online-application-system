@@ -1,16 +1,10 @@
 "use client";
 
-import { DeleteNotice } from "@/app/lib/actions/getNoticesUsecase";
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 // import { getCookies } from "@/app/lib/actions";
 
-export default function NoticesTable({
-  ticketData,
-  classNamez,
-  params,
-  perPage = 8,
-}) {
+export default function UsersTable({ ticketData, classNamez, params, perPage = 8 }) {
   const router = useRouter();
   const [order, setOrder] = useState("asc");
   const [sortedColumn, setSortedColumn] = useState("");
@@ -168,7 +162,7 @@ export default function NoticesTable({
 
   const pathname = usePathname();
   const handleRowClick = (ticketId) => {
-    if (session) router.push(`${pathname}/${ticketId}`);
+    if (session) router.push(`/dashboard/tickets/${ticketId}`);
     else {
       router.push(`${pathname}/${ticketId}`);
     }
@@ -185,28 +179,21 @@ export default function NoticesTable({
                   onClick={() => sort("id")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer"
                 >
-                  ID {getArrow("id")}
+                  User ID {getArrow("id")}
                 </th>
                 <th
-                  onClick={() => sort("title")}
+                  onClick={() => sort("subject")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer"
                 >
-                  Title {getArrow("title")}
+                  Name {getArrow("subject")}
                 </th>
                 <th
-                  onClick={() => sort("description")}
+                  onClick={() => sort("category")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
                 >
-                  Description {getArrow("description")}
+                  Email {getArrow("category")}
                 </th>
-
-                <th
-                  onClick={() => sort("hyperlink")}
-                  className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
-                >
-                  hyperlink {getArrow("hyperlink")}
-                </th>
-                {/* <th
+                  {/* <th
                   onClick={() => sort("priority")}
                   className="text-uppercase text-secondary text-xxs font-weight-bolder cursor-pointer ps-2"
                 >
@@ -230,12 +217,7 @@ export default function NoticesTable({
                 >
                   Created At {getArrow("createdAt")}
                 </th>
-
-                <th style={{ maxWidth: "5px" }}>
-                  {/* <i className="ni ni-fat-remove text-xs text-secondary"></i> */}
-                </th>
-
-                {/* <th style={{ maxWidth: "5px" }}></th> */}
+                <th style={{ maxWidth: "5px" }}></th>
               </tr>
             </thead>
             <tbody>
@@ -243,14 +225,10 @@ export default function NoticesTable({
                 currentItems.map((ticket, index) => (
                   <tr
                     key={index}
-                    // onClick={() => handleRowClick(ticket.id)}
+                    onClick={() => handleRowClick(ticket.id)}
                     className="cursor-pointer"
                   >
-                    <td
-                      key={index}
-                      onClick={() => handleRowClick(ticket.id)}
-                      className="cursor-pointer"
-                    >
+                    <td>
                       <div className="d-flex px-2">
                         <div className="my-auto pl-0">
                           <h6 className="mx-2 mb-0 text-xs">{ticket?.id}</h6>
@@ -258,23 +236,19 @@ export default function NoticesTable({
                       </div>
                     </td>
 
-                    <td
-                      key={index}
-                      onClick={() => handleRowClick(ticket.id)}
-                      className="cursor-pointer"
-                    >
+                    <td>
                       <div className="d-flex px-2">
                         <div className="my-auto pl-0">
                           <h6
-                            className="mx-2 mb-0 text-xs bg-black:hover hover:text-white"
+                            className="mx-2 mb-0 text-xs text-truncate bg-black:hover hover:text-white"
                             style={{
-                              maxWidth: "250px",
+                              maxWidth: "180px",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                             }}
                           >
-                            {ticket?.title}
+                            {ticket?.name}
                           </h6>
                         </div>
                       </div>
@@ -292,31 +266,55 @@ export default function NoticesTable({
                               textOverflow: "ellipsis",
                             }}
                           >
-                            {ticket?.description}
+                            {ticket?.email}
                           </h6>
                         </div>
                       </div>
                     </td>
 
+
+                    {/* <td>
+                      <span className="badge badge-dot me-4 border border-gray-700">
+                        <i className="bg-info"></i>
+                        <span
+                          className={getCategoryColor(
+                            ticket?.category || "GENERAL"
+                          )}
+                        >
+                          {ticket?.category + " "}
+                        </span>
+                      </span>
+                    </td>
                     <td>
-                      <div className="d-flex px-2">
-                        <div className="my-auto pl-0">
-                          <h6
-                            className="mx-2 mb-0 text-xs text-truncate bg-black:hover hover:text-white"
-                            style={{
-                              maxWidth: "180px",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {ticket?.hyperlink}
-                          </h6>
-                        </div>
-                      </div>
+                      <span className="badge badge-dot me-4 border border-gray-700">
+                        <i className="bg-info"></i>
+                        <span
+                          className={getPriorityColor(
+                            ticket?.priority || "MEDIUM"
+                          )}
+                        >
+                          {ticket?.priority + " "}
+                        </span>
+                      </span>
                     </td>
-
-
+                    <td className="text-sm">
+                      <span className={getStatusColor(ticket?.status)}>
+                        {ticket?.status + " "}
+                      </span>
+                    </td>
+                    <td>
+                      <h6
+                        className="mb-0 text-xs text-truncate"
+                        style={{
+                          maxWidth: "200px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {ticket?.description}
+                      </h6>
+                    </td> */}
 
                     <td>
                       <h6
@@ -331,16 +329,11 @@ export default function NoticesTable({
                         {formatDate(ticket?.createdAt)}
                       </h6>
                     </td>
-
                     <td className="align-middle">
-                      <button
-                        onClick={() => DeleteNotice(ticket?.id)}
-                        className="btn btn-link text-secondary mb-0"
-                      >
+                      <button className="btn btn-link text-secondary mb-0">
                         <i
-                          className="btn btn-secondary fa fa-trash text-xs text-center m-0"
+                          className="fa fa-ellipsis-v text-xs"
                           aria-hidden="true"
-                          style={{ background: "crimson", height: "2rem" }}
                         ></i>
                       </button>
                     </td>

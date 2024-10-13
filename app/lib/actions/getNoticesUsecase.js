@@ -40,7 +40,7 @@ export const GetNotice = async (id) => {
   }
 }
 
-export const CreateNotice = async (title, description, hyperlink) => {
+export const createNotice = async (title, description, hyperlink) => {
   try {
 
     const createdNotice = await db.notices.create({

@@ -76,19 +76,19 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/dashboard/reports")} href="/dashboard/reports">
+            <Link className={getLinkClass("/dashboard/notices")} href="/dashboard/notices">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
-              <span className="nav-link-text ms-1">Reports</span>
+              <span className="nav-link-text ms-1">Notices</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={getLinkClass("/dashboard/training-center")} href="/dashboard/trainingenter">
+            <Link className={getLinkClass("/dashboard/organizations")} href="/dashboard/organizations">
               <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i className="ni ni-tv-2 text-primary text-sm opacity-10"></i>
               </div>
-              <span className="nav-link-text ms-1">Training Center</span>
+              <span className="nav-link-text ms-1">Organizations</span>
             </Link>
           </li>
           {userRole === ("ADMIN" || "EMPLOYEE") && (

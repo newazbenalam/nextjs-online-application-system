@@ -9,7 +9,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import NoticesTable from "./components/NoticesTable";
-import { CreateNotice, GetNotices } from "@/app/lib/actions/getNoticesUsecase";
+import { createNotice, getNotices } from "@/app/lib/actions/getNoticesUsecase";
 import { Button } from "react-bootstrap";
 
 export default function DashboardNotices() {
@@ -23,7 +23,7 @@ export default function DashboardNotices() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await  GetNotices();
+      const res = await  getNotices();
       setNotices(res);
     };
     
@@ -42,9 +42,12 @@ export default function DashboardNotices() {
     const description = e.target.description.value;
     const hyperlink = e.target.hyperlink.value;
 
-    const res = await CreateNotice( title, description, hyperlink);
+    const res = await createNotice( title, description, hyperlink);
     // append new notice to the list
-    setNotices([...notices, res]);
+    if (res) {
+      setNotices([...notices, res]);
+      e.target.reset();
+    }
     console.log(res);
   };
 

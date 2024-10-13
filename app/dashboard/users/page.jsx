@@ -9,7 +9,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import { GetUsers } from "@/app/lib/actions/getUserUsecase";
-import TicketTable from "@/app/(components)/TickketTable";
+import UsersTable from "./UsersTable";
 
 export default function DashboardUsers() {
   const [users, setUsers] = useState(<LoadingSpinner />);
@@ -158,13 +158,13 @@ export default function DashboardUsers() {
               <h6 className="mb-0">Latest Candidates </h6>
             </div>
             {isLoading && (
-              <div className="pl-3 pb-3">
+              <div className="pl-3 pb-3 text-center">
                 <LoadingSpinner className="small-spinner" />
               </div>
             )}
             {!isLoading &&
               (Array.isArray(users) && users.length > 0 ? (
-                <TicketTable perPage={18} ticketData={users} className="z-index-0" />
+                <UsersTable perPage={18} ticketData={users} className="z-index-0" />
               ) : (
                 <p className="p-3 pt-0 pb-2">
                   You have no tickets at the moment.
