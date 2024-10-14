@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="copyright text-center text-sm text-muted text-lg-start">
               {year && (
                 <>
-                  © {year}
+                  All Rights Reserved DoS © {year}, Powered by: Dream71 
                  
                 </>
               )}

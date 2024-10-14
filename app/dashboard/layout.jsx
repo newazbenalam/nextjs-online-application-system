@@ -113,7 +113,7 @@ export default function RootLayout({ children }) {
           <div className="card shadow-lg">
             <div className="card-header pb-0 pt-3 ">
               <div className="float-start">
-                <h5 className="mt-3 mb-0">HTMS Configurator</h5>
+                <h5 className="mt-3 mb-0">Online Application System</h5>
               </div>
               <div className="float-end mt-4">
                 <button className="btn btn-link text-dark p-0 fixed-plugin-close-button">
@@ -131,7 +131,7 @@ export default function RootLayout({ children }) {
               <div className="mt-3 ml-3">
                 <h6 className="mb-0 ">Light / Dark</h6>
                 <p className="text-sm">
-                  Choose theme types.
+                
                 </p>
               </div>
               <div className="d-flex ml-3">
