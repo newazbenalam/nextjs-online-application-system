@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/app/(components)/LoadingSpinner";
 import { GetUsers } from "@/app/lib/actions/getUserUsecase";
-import TicketTable from "@/app/(components)/TickketTable";
+import UserTable from "@/app/(components)/UserTable";
 import { getApplicationsCount, getInvoicesCount } from "@/app/lib/actions/getApplicationsUsecases";
 import { getNotices, getNoticesCount } from "@/app/lib/actions/getNoticesUsecase";
 
@@ -14,9 +14,8 @@ export default function Dashboard() {
   const [appliedApplications, setAppliedApplications] = useState(<LoadingSpinner />);
   const [invoice, setInvoice] = useState(<LoadingSpinner />);
   const [notices, setNotices] = useState(<LoadingSpinner />);
-  const [ticketData, setTicketData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [email, setEmail] = useState(null);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -39,10 +38,7 @@ export default function Dashboard() {
             <div className="card-body p-3">
               <div className="row">
                 <div className="col-8">
-                  <Link
-                    href={"/dashboard/tickets/lists?status=OPEN"}
-                    className="hover-decorate"
-                  >
+                 
                     <div className="numbers">
                       <p className="text-sm mb-0 text-uppercase font-weight-bold">
                         {"Candidates"}
@@ -55,7 +51,7 @@ export default function Dashboard() {
                         Total candidates
                       </p>
                     </div>
-                  </Link>
+                  
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
@@ -298,10 +294,10 @@ export default function Dashboard() {
             )}
             {!isLoading &&
               (Array.isArray(users) && users.length > 0 ? (
-                <TicketTable ticketData={users} className="z-index-0" />
+                <UserTable ticketData={users} className="z-index-0" />
               ) : (
                 <p className="p-3 pt-0 pb-2">
-                  You have no tickets at the moment.
+                  You have no application at the moment.
                 </p>
               ))}
           </div>

@@ -30,7 +30,7 @@ export default function SignupPage() {
                 <span className="d-none d-sm-inline">
                   Online Appliication System
                 </span>
-                <span className="d-inline d-sm-none">HTMS</span>
+                <span className="d-inline d-sm-none">DoS</span>
               </a>
               <button
                 className="navbar-toggler shadow-none ms-0"

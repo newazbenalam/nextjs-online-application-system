@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 // import { getCookies } from "@/app/lib/actions";
 
-export default function TicketTable({ ticketData, classNamez, params, perPage = 8 }) {
+export default function UserTable({ ticketData, classNamez, params, perPage = 8 }) {
   const router = useRouter();
   const [order, setOrder] = useState("asc");
   const [sortedColumn, setSortedColumn] = useState("");
